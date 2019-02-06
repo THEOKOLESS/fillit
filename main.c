@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amartino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/06 17:48:28 by amartino          #+#    #+#             */
+/*   Updated: 2019/02/06 20:01:01 by amartino         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 void mycat(int fd)
@@ -8,7 +20,7 @@ void mycat(int fd)
   int			j;	/*ligne size count*/
   char			h[546];	/*how many piece*/
   int			hc; /* how many piece */
-  pieces     	*allp; /*all pices */ 
+  t_list		*allp; /*all pices */
 
   i = 0;
   r = 1;
@@ -58,48 +70,46 @@ void mycat(int fd)
 	}
 
 	h[i] = '\0';
-   	allp = ft_get_pieces(h, hc);
-   	 printf("%s", allp[0].piece );
-}	
- 
-pieces *ft_get_pieces(char *file, int hc)
+	allp = ft_get_pieces(h, hc);
+	ft_lstiter(allp, ft_print_lst);
+}
+
+t_list *ft_get_pieces(char *file, int hc)
 {
-	int 	i;
-	char	buf;;
-	pieces  *allp;
-	int		j;
-	int		l;
+	size_t	i;
+	size_t	j;
+	size_t	nb_hashtag;
+	t_list	*new;
+	t_list	*begin;
 
 	i = 0;
-	j = 0;
-	l = 0;
-		printf("\033[31;01m----------------------\033[00m\n");
-			// printf("\033[32;01m%s\033[00m\n", file);
-	allp = 	/*(pieces*)*/malloc(sizeof(pieces*) * hc);
-	if (allp == NULL)
+	while (--hc >= 0)
 	{
-		ft_putstr("error malloc");
-		exit(2);
-	}
-	while(i <= hc && file[l])
-	{		
-		allp[i].piece[j] = file[l];
-	//	printf("\033[32;01m[%d]\033[00m\n", l);
-		j++;
-		l++;
-		if (file[l] == '\n' && file[l])
+		nb_hashtag = 0;
+		while (file[i] != '#')
+			i++;
+		j = i - 1;
+		while (nb_hashtag < 4)
 		{
-
-			if (file[l - 1] == '\n' && file[l])
-			{
-				i++;
-				l++;
-				j = 0;
-			}
+			if (file[j] == '#')
+				nb_hashtag++;
+			j++;
 		}
+		if (!(begin->content))
+		{
+			begin = ft_lstnew((file + i - 1), j);
+			((char*)(begin->content))[j] = '\0';
+			new = begin;
+		}
+		else
+		{
+			new = ft_lstnew((file + i - 1), j);
+			((char*)(new->content))[j - i + 1] = '\0';
+		}
+		new = new->next;
+		i = j;
 	}
-	// printf("%s\n", allp[2].piece);
-	return (allp);
+	return (begin);
 }
 
 int	main(int argc, char const *argv[])
@@ -124,3 +134,7 @@ int	main(int argc, char const *argv[])
 	}
 	return 0;
 }
+/*
+printf("\033[32;01mOK\033[00m\n");  //vert
+printf("\033[32;01m%s\033[00m\n", file);
+*/

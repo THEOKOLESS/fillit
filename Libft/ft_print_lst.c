@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_print_lst.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amartino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/15 17:19:47 by amartino          #+#    #+#             */
-/*   Updated: 2019/02/06 20:01:31 by amartino         ###   ########.fr       */
+/*   Created: 2019/02/06 18:48:18 by amartino          #+#    #+#             */
+/*   Updated: 2019/02/06 20:01:08 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
+void	ft_print_lst(t_list *elem)
 {
-	t_list		*current_lst;
-
-	current_lst = lst;
-	while (current_lst != NULL)
-	{
-		f(current_lst);
-		current_lst = current_lst->next;
-	}
+	if (!elem)
+		return ;
+	write(1, elem->content, elem->content_size);
 }
