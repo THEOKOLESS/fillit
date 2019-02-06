@@ -71,6 +71,11 @@ void mycat(int fd)
 
 	h[i] = '\0';
 	allp = ft_get_pieces(h, hc);
+	printf("\033[35;01m\nFranchement au total ca passe bien :\n%s\033[00m\n", allp->content);  //rose
+	printf("\033[35;01m%s\033[00m\n", allp->next->content);  //rose
+	printf("\033[35;01m%s\033[00m\n", allp->next->next->content);  //rose
+	printf("\033[35;01m%s\033[00m\n", allp->next->next->next->content);  //rose
+	printf("\net la mon pointeur sur fonction deconne complet\n");
 	ft_lstiter(allp, ft_print_lst);
 }
 
@@ -95,22 +100,32 @@ t_list *ft_get_pieces(char *file, int hc)
 				nb_hashtag++;
 			j++;
 		}
-		if (!(begin->content))
+		if (!(begin->content)) //comme pour la fonction ft_lstmap, il faut set up le premier maillon pour ensuite le faire en boucle avec le next;
 		{
 			begin = ft_lstnew((file + i - 1), j);
 			((char*)(begin->content))[j] = '\0';
 			new = begin;
+			printf("\033[36;01m\nNiquel pour le début:\n%s\033[00m\n", begin->content);  //bleu cyan
 		}
 		else
 		{
-			new = ft_lstnew((file + i - 1), j);
+			printf("\033[34;01m%zu\033[00m\n", i);  //vert
+			printf("\033[34;01m%zu\033[00m\n", j);  //vert
+			new->next = ft_lstnew((file + i - 1), j - i + 1);
 			((char*)(new->content))[j - i + 1] = '\0';
+			printf("\033[32;01m\nNiquel pour ca aussi, bien délimité\n%s\033[00m\n", new->next->content);  //vert
+			new = new->next;
 		}
-		new = new->next;
 		i = j;
 	}
+			printf("\033[36;01m\nIncompréhensible, ca devrait etre la meme chose que l'autre bleu cyan normalement\n%s\033[00m\n", begin->content);  //bleu cyan
 	return (begin);
 }
+
+/*
+ *bon bon bon je suis arrivé a finir cette fonction d'affichage mais je suis 
+ ,vraiment pas loin. Je vais essayer de te guider dans le code pour que tu puisses t'y retrouver.
+*/
 
 int	main(int argc, char const *argv[])
 {

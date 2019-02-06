@@ -17,4 +17,5 @@ void	ft_print_lst(t_list *elem)
 	if (!elem)
 		return ;
 	write(1, elem->content, elem->content_size);
+	write(1, "\n", 1);
 }
