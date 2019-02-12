@@ -6,7 +6,7 @@
 /*   By: amartino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 18:48:18 by amartino          #+#    #+#             */
-/*   Updated: 2019/02/06 20:01:08 by amartino         ###   ########.fr       */
+/*   Updated: 2019/02/12 10:21:25 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,5 @@ void	ft_print_lst(t_list *elem)
 	if (!elem)
 		return ;
 	write(1, elem->content, elem->content_size);
-	write(1, "\n", 1);
+	write(1, "\n\n", 2);
 }
