@@ -6,11 +6,38 @@
 /*   By: amartino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:55:58 by amartino          #+#    #+#             */
-/*   Updated: 2019/02/15 17:06:20 by amartino         ###   ########.fr       */
+/*   Updated: 2019/02/16 16:42:45 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+t_list	*ft_clean_column(t_list *begin)
+{
+	int		i;
+	int		j;
+	int		resultat;
+	t_list	*tmp;
+
+	tmp = begin;
+	while (tmp)
+	{
+		i = -1;
+		while (++i < 4)
+		{
+			j = i - 5;
+			resultat = 1;
+			while ((j += 5) <= (int)(ft_strlen(tmp->content)))
+				if (((char*)(tmp->content))[j] == '#')
+					resultat = 0;
+			if (resultat == 1)
+				while ((j -= 5) > 0)
+					((char*)(tmp->content))[j] = 'x';
+		}
+		tmp = tmp->next;
+	}
+	return (begin);
+}
 
 t_list *ft_get_pieces(char *file)
 {
@@ -55,6 +82,7 @@ t_list *ft_get_pieces(char *file)
 		}
 		i = j + 1;
 	}
+	begin = ft_clean_column(begin);
 	return (begin);
 }
 /*
