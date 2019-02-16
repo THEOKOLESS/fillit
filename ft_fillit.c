@@ -19,5 +19,6 @@ void	ft_fillit(int fd)
 
 	file = ft_checks(fd);
 	allp = ft_get_pieces(file);
+	// printf("\033[34;01m[%s]\033[00m\n", allp->content);
 	ft_lstiter(allp, ft_print_lst);
 }

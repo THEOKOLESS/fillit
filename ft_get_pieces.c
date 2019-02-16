@@ -25,13 +25,17 @@ t_list	*ft_clean_column(t_list *begin)
 		i = -1;
 		while (++i < 4)
 		{
-			j = i - 5;
+			//printf("\033[32;01mOK\033[00m\n");  //vert
+			j = i;
 			resultat = 1;
-			while ((j += 5) <= (int)(ft_strlen(tmp->content)))
+			while (j < (int)(ft_strlen(tmp->content)))
+			{
 				if (((char*)(tmp->content))[j] == '#')
 					resultat = 0;
+				j += 5;
+			}
 			if (resultat == 1)
-				while ((j -= 5) > 0)
+				while ((j -= 5) >= 0)
 					((char*)(tmp->content))[j] = 'x';
 		}
 		tmp = tmp->next;
@@ -39,11 +43,50 @@ t_list	*ft_clean_column(t_list *begin)
 	return (begin);
 }
 
-t_list *ft_get_pieces(char *file)
+t_list	*ft_clean_x(t_list	*begin)
 {
-	size_t	i;
-	size_t	j;
-	size_t	nb_hashtag;
+	t_list	*tmp;
+	int		size;
+	int		i;
+	char	*dayson;
+
+	tmp = begin;
+
+	while (tmp)
+	{
+		i = -1;
+		size = 0;
+		while (((char*)(tmp->content))[++i])
+		{
+			if (((char*)(tmp->content))[i] != 'x')
+				size++;
+		}
+		if(!(dayson = (char*)malloc(sizeof(char) * (size + 1))))
+			return NULL;
+		i = -1;
+		size = 0;
+		while (((char*)(tmp->content))[++i])
+		{
+			if (((char*)(tmp->content))[i] != 'x')
+			{
+				dayson[size] = ((char*)(tmp->content))[i];
+				size++;
+			}
+		}
+		dayson[size] = '\0';
+		ft_memdel(&(tmp->content));
+		tmp->content = dayson;
+		tmp->content_size = ft_strlen(dayson);
+		tmp = tmp->next;
+	}
+	return (begin);
+}
+
+t_list	*ft_get_pieces(char *file)
+{
+	int		i;
+	int		j;
+	int		nb_hashtag;
 	t_list	*new;
 	t_list	*begin;
 
@@ -70,6 +113,8 @@ t_list *ft_get_pieces(char *file)
 			j++;
 		if (!(begin))
 		{
+			if (i == 0)
+				i = -1;
 			begin = ft_lstnew((file + i + 1), j - i);
 			((char*)(begin->content))[j - i] = '\0';
 			new = begin;
@@ -82,7 +127,8 @@ t_list *ft_get_pieces(char *file)
 		}
 		i = j + 1;
 	}
-	begin = ft_clean_column(begin);
+	begin = ft_clean_column(begin);	
+	begin = ft_clean_x(begin);
 	return (begin);
 }
 /*
