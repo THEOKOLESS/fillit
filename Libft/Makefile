@@ -6,7 +6,7 @@
 #    By: amartino <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/09 18:13:22 by amartino          #+#    #+#              #
-#    Updated: 2019/02/20 16:17:34 by amartino         ###   ########.fr        #
+#    Updated: 2019/02/21 18:36:20 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,16 +41,16 @@ CC = gcc
 all: $(NAME)
 
 $(OBJ):
-	$(CC) -c $(CFLAGS) $(patsubst %, %.c,$(SRC)) -I.
+	@$(CC) -c $(CFLAGS) $(patsubst %, %.c,$(SRC)) -I.
 
 $(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
+	@ar rcs $(NAME) $(OBJ)
 
 clean:
-	rm -f $(OBJ)
+	@rm -f $(OBJ)
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re: fclean all
 
