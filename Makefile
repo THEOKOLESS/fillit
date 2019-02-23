@@ -6,7 +6,7 @@
 #    By: amartino <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/02/23 14:37:20 by amartino         ###   ########.fr        #
+#    Updated: 2019/02/23 14:38:28 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,9 +75,9 @@ re: fclean all
                       #####################
 
 git:
-	git add *
-	git commit -m "$(COMMIT_MESSAGE)"
-	git push
+	@git add *
+	@git commit -m "$(COMMIT_MESSAGE)"
+	@git push
 
                       #####################
                       #                   #
