@@ -6,7 +6,7 @@
 #    By: amartino <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/02/23 14:40:14 by amartino         ###   ########.fr        #
+#    Updated: 2019/02/23 16:17:57 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ DEPS = fillit.h
 
 OBJ = $(patsubst %, %.o, $(SRC))
 
-
+FLAG?= NO
 
 all: $(NAME)
 
@@ -50,10 +50,10 @@ $(NAME): $(OBJ) subsystem
 	@echo "$(GREEN)MAKE COMPLETE$(END)"
 
 $(OBJ):
-ifneq (,$(findstring i,$(MAKEFLAGS)))
-	$(CC) $(DFLAGS) -c $(patsubst %, %.c, $(SRC))
-else
+ifeq ($(FLAG),NO)
 	$(CC) $(CFLAGS) -c $(patsubst %, %.c, $(SRC))
+else
+	$(CC) $(DFLAGS) -c $(patsubst %, %.c, $(SRC))
 endif
 
 .PHONY: clean fclean all re
@@ -94,3 +94,6 @@ BLUE = \x1b[34m
 MAGENTA = \x1b[35m
 CYAN = \x1b[36m
 END = \x1b[0m
+
+
+#ifneq (,$(findstring i,$(MAKEFLAGS)))
