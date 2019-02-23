@@ -6,7 +6,7 @@
 #    By: amartino <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/02/23 16:22:13 by amartino         ###   ########.fr        #
+#    Updated: 2019/02/23 16:30:20 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ DEPS = fillit.h
 
 OBJ = $(patsubst %, %.o, $(SRC))
 
-FLAG?= NO
+FLAG ?= NO
 
 all: $(NAME)
 
@@ -49,15 +49,6 @@ $(NAME): $(OBJ) subsystem
 	$(CC) -o $(NAME) $(OBJ) $(LIB)
 	@echo "$(GREEN)MAKE COMPLETE$(END)"
 
-$(OBJ):
-ifeq ($(FLAG),NO)
-	$(CC) $(CFLAGS) -c $(patsubst %, %.c, $(SRC))
-else
-	$(CC) $(DFLAGS) -c $(patsubst %, %.c, $(SRC))
-endif
-
-.PHONY: clean fclean all re
-
 clean:
 	@rm -f $(OBJ)
 
@@ -66,26 +57,40 @@ fclean: clean
 
 re: fclean all
 
+.PHONY: clean fclean all re
 
-                      #####################
-                      #                   #
-                      #       GITHUB      #
-                      #                   #
-                      #####################
+                             #####################
+                             #                   #
+                             #       IFEQ        #
+                             #                   #
+                             #####################
+
+$(OBJ):
+ifeq ($(FLAG),NO)
+	$(CC) $(CFLAGS) -c $(patsubst %, %.c, $(SRC))
+else
+	$(CC) $(DFLAGS) -c $(patsubst %, %.c, $(SRC))
+endif
+                             #####################
+                             #                   #
+                             #        GIT        #
+                             #                   #
+                             #####################
 
 COMMIT_MESSAGE ?= $(shell bash -c \
-				  'read -p "Enter a commit message:" pwd; echo $$pwd')
+				  'read -p "$(CYAN)Enter a commit message:$(END)" pwd; echo $$pwd')
 
 git:
+	@rm *.o
 	@git add *
 	@git commit -m "$(COMMIT_MESSAGE)"
 	@git push
 
-                      #####################
-                      #                   #
-                      #       COLOR       #
-                      #                   #
-                      #####################
+                             #####################
+                             #                   #
+                             #       COLOR       #
+                             #                   #
+                             #####################
 
 RED = \x1b[31m
 GREEN = \x1b[32m
