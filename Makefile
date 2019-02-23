@@ -6,7 +6,7 @@
 #    By: amartino <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/02/21 19:26:19 by amartino         ###   ########.fr        #
+#    Updated: 2019/02/23 14:29:00 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,8 @@ DEPS = fillit.h
 
 OBJ = $(patsubst %, %.o, $(SRC))
 
+COMMIT_MESSAGE ?= $(shell bash -c 'read -s -p "Password: " pwd; echo $$pwd')
+
 
 all: $(NAME)
 
@@ -64,6 +66,19 @@ fclean: clean
 	@rm -rf $(NAME)
 
 re: fclean all
+
+
+                      #####################
+                      #                   #
+                      #       GITHUB      #
+                      #                   #
+                      #####################
+
+git:
+	@echo "Enter a commit message: $(COMMIT_MESSAGE)"
+	git add *
+	git commit -m "$(COMMIT_MESSAGE)"
+	git push
 
                       #####################
                       #                   #
