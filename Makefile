@@ -6,7 +6,7 @@
 #    By: amartino <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/02/23 16:36:52 by amartino         ###   ########.fr        #
+#    Updated: 2019/02/23 17:26:25 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,16 +36,16 @@ DEPS = fillit.h
 
 OBJ = $(patsubst %, %.o, $(SRC))
 
-FLAG ?= NO
+FLAG ?=
 
 all: $(NAME)
 
 #il faudrait que le make se fasse seulement s'il y a des trucs a faire 
-subsystem:
+make_libft:
 	@cd Libft && $(MAKE)
 	@echo  "$(CYAN)makefile libft$(END)"
 
-$(NAME): $(OBJ) subsystem
+$(NAME): $(OBJ) make_libft
 	$(CC) -o $(NAME) $(OBJ) $(LIB)
 	@echo "$(GREEN)MAKE COMPLETE$(END)"
 
@@ -66,7 +66,7 @@ re: fclean all
                              #####################
 
 $(OBJ):
-ifeq ($(FLAG),NO)
+ifndef $(FLAG)
 	$(CC) $(CFLAGS) -c $(patsubst %, %.c, $(SRC))
 else
 	$(CC) $(DFLAGS) -c $(patsubst %, %.c, $(SRC))
