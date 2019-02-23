@@ -6,7 +6,7 @@
 #    By: amartino <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/02/23 16:30:20 by amartino         ###   ########.fr        #
+#    Updated: 2019/02/23 16:36:52 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,10 +78,11 @@ endif
                              #####################
 
 COMMIT_MESSAGE ?= $(shell bash -c \
-				  'read -p "$(CYAN)Enter a commit message:$(END)" pwd; echo $$pwd')
+				  'read -p "Enter a commit message:" pwd; echo $$pwd')
 
 git:
 	@rm *.o
+	@rm Libft/*.o
 	@git add *
 	@git commit -m "$(COMMIT_MESSAGE)"
 	@git push
