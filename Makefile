@@ -6,7 +6,7 @@
 #    By: amartino <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/02/23 14:39:20 by amartino         ###   ########.fr        #
+#    Updated: 2019/02/23 14:40:14 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,8 @@ re: fclean all
                       #                   #
                       #####################
 
-COMMIT_MESSAGE ?= $(shell bash -c 'read -p "Enter a commit message: " pwd; echo $$pwd')
+COMMIT_MESSAGE ?= $(shell bash -c \
+				  'read -p "Enter a commit message:" pwd; echo $$pwd')
 
 git:
 	@git add *
