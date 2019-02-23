@@ -6,7 +6,7 @@
 #    By: amartino <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/02/23 16:17:57 by amartino         ###   ########.fr        #
+#    Updated: 2019/02/23 16:21:12 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,13 +73,16 @@ re: fclean all
                       #                   #
                       #####################
 
+COMMIT = $(COMMIT_MESSAGE)
+
 COMMIT_MESSAGE ?= $(shell bash -c \
 				  'read -p "Enter a commit message:" pwd; echo $$pwd')
 
 git:
 	@git add *
-	@git commit -m "$(COMMIT_MESSAGE)"
+	@git commit -m "$(COMMIT)"
 	@git push
+	@echo "just re-use your commit message : $(COMMIT)"
 
                       #####################
                       #                   #
