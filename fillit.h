@@ -34,5 +34,8 @@ t_feel		*ft_get_pieces(char *file);
 t_feel		*ft_tfeelnew(char *content, size_t content_size);
 void		ft_tfeel_iter(t_feel *lst, void (*f)(t_feel *elem));
 void		ft_print_tfeel(t_feel *elem);
+void		ft_get_coordinate(t_feel *allp);
+int			ft_tfeel_count(t_feel *lst);
+char		*ft_solve(t_feel *allp, char *map);
 
 #endif

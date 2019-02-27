@@ -41,8 +41,38 @@ void	ft_tfeel_iter(t_feel *lst, void (*f)(t_feel *elem))
 
 void	ft_print_tfeel(t_feel *elem)
 {
+	int 	i;
+
+	i = 0;
 	if (!elem)
 		return ;
 	write(1, elem->content, elem->content_size);
+	write(1, "\n", 1);
+	while (i < 8)
+	{
+		ft_putchar('[');
+		ft_putnbr(elem->coordinate[i++]);
+		ft_putstr(" , ");
+		ft_putnbr(elem->coordinate[i++]);
+		ft_putchar(']');
+		ft_putchar('\n');
+	}
 	write(1, "\n\n", 2);
+}
+
+int		ft_tfeel_count(t_feel *lst)
+{
+	int 	i;
+	t_feel	*tmp;
+
+	if (!lst->next)
+		return (1);
+	tmp = lst->next;
+	i = 2;
+	while (tmp->next)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
 }

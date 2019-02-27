@@ -15,11 +15,17 @@
 void	ft_fillit(int fd)
 {
 	char		*file;
+	char		*map;
 	t_feel		*allp;
 
 	allp = NULL;
+	map = NULL;
 	file = ft_checks(fd);
 	allp = ft_get_pieces(file);
-	// printf("\033[34;01m[%s]\033[00m\n", allp->content);
+	ft_tfeel_iter(allp, ft_get_coordinate);
+	map = ft_solve(allp, map);
 	ft_tfeel_iter(allp, ft_print_tfeel);
 }
+
+
+// printf("\033[34;01m[%s]\033[00m\n", allp->content);

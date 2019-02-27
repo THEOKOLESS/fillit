@@ -83,6 +83,8 @@ t_feel	*ft_clean_x(t_feel	*begin)
 }
 
 
+
+
 t_feel	*ft_get_pieces(char *file)
 {
 	int		i;
