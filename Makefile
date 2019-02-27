@@ -6,7 +6,7 @@
 #    By: amartino <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/02/23 17:26:25 by amartino         ###   ########.fr        #
+#    Updated: 2019/02/27 15:01:36 by tvitoux          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,20 +14,20 @@ NAME = fillit
 
 LIB = Libft/libft.a
 
-SRC = ft_fillit ft_checks ft_get_pieces main
+SRC = ft_fillit ft_checks ft_get_pieces main ft_init
 
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
 DFLAGS = -Wall -Wextra -Werror -fsanitize=address,undefined -g3 -pedantic\
-		 -ansi -O2 -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int\
+		 -ansi -O2 -Wchar-subscripts -Wformat=2 -Wimplicit-int\
 		 -Werror-implicit-function-declaration -Wmain -Wparentheses\
 		 -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused\
 		 -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow\
-		 -Wpointer-arith -Wbad-function-cast -Wwrite-strings -Wconversion\
+		 -Wpointer-arith -Wbad-function-cast -Wwrite-strings \
 		 -Wsign-compare -Waggregate-return -Wstrict-prototypes\
-		 -Wmissing-prototypes -Wmissing-declarations -Wmissing-noreturn\
+		 -Wmissing-declarations -Wmissing-noreturn\
 		 -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations\
 		 -Wpacked -Wredundant-decls -Wnested-externs -Winline -Wlong-long\
 		 -Wunreachable-code
@@ -36,7 +36,7 @@ DEPS = fillit.h
 
 OBJ = $(patsubst %, %.o, $(SRC))
 
-FLAG ?=
+FLAG ?= CFLAGS
 
 all: $(NAME)
 
@@ -66,12 +66,16 @@ re: fclean all
                              #####################
 
 $(OBJ):
-ifndef $(FLAG)
+ifeq ($(FLAG), CFLAGS)	
 	$(CC) $(CFLAGS) -c $(patsubst %, %.c, $(SRC))
+else ifeq ($(FLAG), NO)
+	$(CC) -c $(patsubst %, %.c, $(SRC))
 else
 	$(CC) $(DFLAGS) -c $(patsubst %, %.c, $(SRC))
 endif
-                             #####################
+
+
+#                            #####################
                              #                   #
                              #        GIT        #
                              #                   #
@@ -81,13 +85,11 @@ COMMIT_MESSAGE ?= $(shell bash -c \
 				  'read -p "Enter a commit message:" pwd; echo $$pwd')
 
 git:
-	@rm *.o
-	@rm Libft/*.o
 	@git add *
 	@git commit -m "$(COMMIT_MESSAGE)"
 	@git push
 
-                             #####################
+#                            #####################
                              #                   #
                              #       COLOR       #
                              #                   #

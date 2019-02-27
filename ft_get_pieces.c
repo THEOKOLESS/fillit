@@ -12,12 +12,12 @@
 
 #include "fillit.h"
 
-t_list	*ft_clean_column(t_list *begin)
+t_feel	*ft_clean_column(t_feel *begin)
 {
 	int		i;
 	int		j;
 	int		resultat;
-	t_list	*tmp;
+	t_feel	*tmp;
 
 	tmp = begin;
 	while (tmp)
@@ -30,22 +30,22 @@ t_list	*ft_clean_column(t_list *begin)
 			resultat = 1;
 			while (j < (int)(ft_strlen(tmp->content)))
 			{
-				if (((char*)(tmp->content))[j] == '#')
+				if (tmp->content[j] == '#')
 					resultat = 0;
 				j += 5;
 			}
 			if (resultat == 1)
 				while ((j -= 5) >= 0)
-					((char*)(tmp->content))[j] = 'x';
+					tmp->content[j] = 'x';
 		}
 		tmp = tmp->next;
 	}
 	return (begin);
 }
 
-t_list	*ft_clean_x(t_list	*begin)
+t_feel	*ft_clean_x(t_feel	*begin)
 {
-	t_list	*tmp;
+	t_feel	*tmp;
 	int		size;
 	int		i;
 	char	*dayson;
@@ -56,25 +56,25 @@ t_list	*ft_clean_x(t_list	*begin)
 	{
 		i = -1;
 		size = 0;
-		while (((char*)(tmp->content))[++i])
+		while (tmp->content[++i])
 		{
-			if (((char*)(tmp->content))[i] != 'x')
+			if (tmp->content[i] != 'x')
 				size++;
 		}
 		if(!(dayson = (char*)malloc(sizeof(char) * (size + 1))))
 			return NULL;
 		i = -1;
 		size = 0;
-		while (((char*)(tmp->content))[++i])
+		while (tmp->content[++i])
 		{
-			if (((char*)(tmp->content))[i] != 'x')
+			if (tmp->content[i] != 'x')
 			{
-				dayson[size] = ((char*)(tmp->content))[i];
+				dayson[size] = tmp->content[i];
 				size++;
 			}
 		}
 		dayson[size] = '\0';
-		ft_memdel(&(tmp->content));
+		ft_strdel(&(tmp->content));
 		tmp->content = dayson;
 		tmp->content_size = ft_strlen(dayson);
 		tmp = tmp->next;
@@ -82,13 +82,14 @@ t_list	*ft_clean_x(t_list	*begin)
 	return (begin);
 }
 
-t_list	*ft_get_pieces(char *file)
+
+t_feel	*ft_get_pieces(char *file)
 {
 	int		i;
 	int		j;
 	int		nb_hashtag;
-	t_list	*new;
-	t_list	*begin;
+	t_feel	*new;
+	t_feel	*begin;
 
 	i = 0;
 	new = NULL;
@@ -115,14 +116,14 @@ t_list	*ft_get_pieces(char *file)
 		{
 			if (i == 0)
 				i = -1;
-			begin = ft_lstnew((file + i + 1), j - i);
-			((char*)(begin->content))[j - i] = '\0';
+			begin = ft_tfeelnew((file + i + 1), j - i);
+			begin->content[j - i] = '\0';
 			new = begin;
 		}
 		else
 		{
-			new->next = ft_lstnew((file + i + 1), j - i);
-			((char*)(new->next->content))[j - i] = '\0';
+			new->next = ft_tfeelnew((file + i + 1), j - i);
+			new->next->content[j - i] = '\0';
 			new = new->next;
 		}
 		i = j + 1;

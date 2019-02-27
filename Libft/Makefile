@@ -6,7 +6,7 @@
 #    By: amartino <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/09 18:13:22 by amartino          #+#    #+#              #
-#    Updated: 2019/02/21 18:36:20 by amartino         ###   ########.fr        #
+#    Updated: 2018/12/18 15:47:32 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC = ft_atoi     ft_bzero      ft_isalnum  ft_isalpha    \
       ft_strsplit ft_strstr     ft_strsub   ft_strtrim    \
       ft_tolower  ft_toupper    ft_strupcase ft_strcapitalize \
       ft_is_prime ft_sort_integer_table ft_max ft_rot ft_intlen \
-      ft_countwords ft_count_lst ft_find_lsth ft_print_lst
+      ft_countwords ft_count_lst ft_find_lsth
 
 OBJ = $(patsubst %, %.o,$(SRC))
 
@@ -41,16 +41,16 @@ CC = gcc
 all: $(NAME)
 
 $(OBJ):
-	@$(CC) -c $(CFLAGS) $(patsubst %, %.c,$(SRC)) -I.
+	$(CC) -c $(CFLAGS) $(patsubst %, %.c,$(SRC)) -I.
 
 $(NAME): $(OBJ)
-	@ar rcs $(NAME) $(OBJ)
+	ar rcs $(NAME) $(OBJ)
 
 clean:
-	@rm -f $(OBJ)
+	rm -f $(OBJ)
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -rf $(NAME)
 
 re: fclean all
 

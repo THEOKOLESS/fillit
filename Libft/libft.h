@@ -6,7 +6,7 @@
 /*   By: amartino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 12:28:12 by amartino          #+#    #+#             */
-/*   Updated: 2019/02/15 16:25:22 by amartino         ###   ########.fr       */
+/*   Updated: 2018/12/18 15:38:18 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ typedef struct	s_list
 {
 	void			*content;
 	size_t			content_size;
-	struct s_list	*prev;
 	struct s_list	*next;
 }				t_list;
 
@@ -47,7 +46,6 @@ void			*ft_memcpy(void *dest, const void *src, size_t n);
 void			ft_memdel(void **ap);
 void			*ft_memmove(void *dst, const void *src, size_t len);
 void			*ft_memset(void *str, int c, size_t len);
-void			ft_print_lst(t_list *elem);
 void			ft_putchar(char c);
 void			ft_putchar_fd(char c, int fd);
 void			ft_putendl(char const *s);
