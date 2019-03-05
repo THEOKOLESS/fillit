@@ -25,7 +25,7 @@ typedef struct 	s_feel
 	char		*content;
 	int			coordinate[8];
 	struct s_feel	*prev;
-	struct s_feel	*next;	
+	struct s_feel	*next;
 }				t_feel;
 
 void		ft_fillit(int fd);

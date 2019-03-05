@@ -28,7 +28,7 @@ SRC = ft_atoi     ft_bzero      ft_isalnum  ft_isalpha    \
       ft_strsplit ft_strstr     ft_strsub   ft_strtrim    \
       ft_tolower  ft_toupper    ft_strupcase ft_strcapitalize \
       ft_is_prime ft_sort_integer_table ft_max ft_rot ft_intlen \
-      ft_countwords ft_count_lst ft_find_lsth
+      ft_countwords ft_count_lst ft_find_lsth ft_find_square
 
 OBJ = $(patsubst %, %.o,$(SRC))
 

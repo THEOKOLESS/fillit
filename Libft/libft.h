@@ -26,6 +26,7 @@ typedef struct	s_list
 
 int				ft_atoi(const char *src);
 void			ft_bzero(void *s, size_t n);
+float			ft_find_square(float nb);
 int				ft_isalnum(int c);
 int				ft_isalpha(int c);
 int				ft_isascii(int c);

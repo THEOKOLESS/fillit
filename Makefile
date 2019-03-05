@@ -14,7 +14,8 @@ NAME = fillit
 
 LIB = Libft/libft.a
 
-SRC = ft_fillit ft_checks ft_get_pieces main ft_init
+SRC = ft_fillit ft_checks ft_get_pieces main ft_init ft_get_coordinate\
+ft_solve
 
 CC = gcc
 
@@ -40,7 +41,7 @@ FLAG ?= CFLAGS
 
 all: $(NAME)
 
-#il faudrait que le make se fasse seulement s'il y a des trucs a faire 
+#il faudrait que le make se fasse seulement s'il y a des trucs a faire
 make_libft:
 	@cd Libft && $(MAKE)
 	@echo  "$(CYAN)makefile libft$(END)"
@@ -66,7 +67,7 @@ re: fclean all
                              #####################
 
 $(OBJ):
-ifeq ($(FLAG), CFLAGS)	
+ifeq ($(FLAG), CFLAGS)
 	$(CC) $(CFLAGS) -c $(patsubst %, %.c, $(SRC))
 else ifeq ($(FLAG), NO)
 	$(CC) -c $(patsubst %, %.c, $(SRC))
