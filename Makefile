@@ -6,7 +6,7 @@
 #    By: amartino <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/02/27 15:01:36 by tvitoux          ###   ########.fr        #
+#    Updated: 2019/03/06 17:25:44 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,10 @@ DEPS = fillit.h
 
 OBJ = $(patsubst %, %.o, $(SRC))
 
+T ?= sample
+
+VAL ?= NO
+
 FLAG ?= CFLAGS
 
 all: $(NAME)
@@ -49,6 +53,8 @@ make_libft:
 $(NAME): $(OBJ) make_libft
 	$(CC) -o $(NAME) $(OBJ) $(LIB)
 	@echo "$(GREEN)MAKE COMPLETE$(END)"
+
+t: re $(VAL)
 
 clean:
 	@rm -f $(OBJ)
@@ -68,14 +74,19 @@ re: fclean all
 
 $(OBJ):
 ifeq ($(FLAG), CFLAGS)
-	$(CC) $(CFLAGS) -c $(patsubst %, %.c, $(SRC))
+	$(CC) -g $(CFLAGS) -c $(patsubst %, %.c, $(SRC))
 else ifeq ($(FLAG), NO)
-	$(CC) -c $(patsubst %, %.c, $(SRC))
+	$(CC) -g -c $(patsubst %, %.c, $(SRC))
 else
-	$(CC) $(DFLAGS) -c $(patsubst %, %.c, $(SRC))
+	$(CC) -g $(DFLAGS) -c $(patsubst %, %.c, $(SRC))
 endif
 
-
+$(VAL):
+ifeq ($(VAL), NO)
+	./fillit examples/$(T).fillit
+else
+	valgrind --track-origins=yes --leak-check=full --show-leak-kinds=definite ./fillit examples/$(T).fillit
+endif
 #                            #####################
                              #                   #
                              #        GIT        #

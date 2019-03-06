@@ -1,0 +1,4 @@
+*.o
+Libft/*.o
+*a.out*
+*dSYM

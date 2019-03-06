@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_solve.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amartino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/06 15:58:22 by amartino          #+#    #+#             */
+/*   Updated: 2019/03/06 19:00:09 by amartino         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 int		ft_initialise(t_feel *allp, char **map, int square_size, int status)
@@ -25,7 +37,6 @@ int		ft_initialise(t_feel *allp, char **map, int square_size, int status)
 		while (++j < square_size)
 			(*map)[j] = '.';
 		(*map)[square_size] = '\n';
-		printf("\n\033[34;01m[%d]\033[00m\n", square_size);
 		square_size += (int)tmp + 1;
 	}
 	return (status ==  0 ? square_size = (int)tmp : square_size);
