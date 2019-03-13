@@ -3,58 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   ft_solve.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amartino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:58:22 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/06 19:00:09 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/13 19:40:31 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		ft_initialise(t_feel *allp, char **map, int square_size, int status)
+int		ft_feel(const t_feel *elem, t_map *map, const int status)
+{
+
+}
+
+int		ft_recursive(t_feel *elem, t_map *map)
+{
+	while(elem)
+	{
+		if (ft_feel(elem, map, 0))
+		{
+				ft_feel(elem, map, 1);
+				if (ft_recursive(elem->next, map))
+					return (1);
+				//clean_stack
+		}
+		else if (elem->start < ((map->square_size * map->square_size) + map->square_size))
+			elem->start++;
+
+	}
+	return (1);
+}
+
+int		ft_initialise(t_feel *allp, t_map *map)
 {
 	float	tmp;
 	int		i;
 	int		j;
 
-	if (status == 0)
-	{
-		tmp = ft_find_square(ft_tfeel_count(allp) * 4) + 0.999999;
-		square_size = (int)tmp;
-		i = square_size + 1;
-		square_size = (square_size + 4) * (square_size + 4) + (square_size + 4);
-		if (!(*map = (char*)malloc(sizeof(char*) * (square_size + 1))))
-			return 0;
-		//ft_memset(*map, 1, square_size); hein ?
-		(*map)[square_size] = '\0';
-		square_size = (int)tmp;
-	}
-	i = square_size + 1;
+	tmp = ft_find_square(ft_tfeel_count(allp) * 4) + 0.999999;
+	map->square_size = (int)tmp;
+	i = map->square_size + 1;
 	j = -1;
 	while (--i > 0)
 	{
-		while (++j < square_size)
-			(*map)[j] = '.';
-		(*map)[square_size] = '\n';
-		square_size += (int)tmp + 1;
+		while (++j < map->square_size)
+			map->map[j] = '.';
+		map->map[j] = '\n';
+		map->square_size += (int)tmp + 1;
 	}
-	return (status ==  0 ? square_size = (int)tmp : square_size);
+	return ((int)tmp);
 }
 
-char	*ft_solve(t_feel *allp, char *map)
+t_map	*ft_solve(t_feel *allp, t_map *map)
 {
-	int		square_size;
-
-	square_size = 0;
-	if ((square_size = ft_initialise(allp, &map, square_size, 0)) == 0)
+	if ((map->square_size = ft_initialise(allp, map)) == 0)
 		return NULL;
-	map[2] = '@';
-	map[7] = '@';
-	map[12] = '@';
-	map[17] = '@';
-	map[23] = '@';
-	map[28] = '@';
-	ft_putstr(map);
+	while (ft_recursive(allp, map) == 0)
+	{
+		map->square_size++;
+		if ((map->square_size = ft_initialise(allp, map)) == 0)
+			return NULL;
+	}
+	ft_putstr(map->map);
 	return (map);
 }
+
+/*
+** ft_memset(*map, 1, map->square_size); hein ?
+*/

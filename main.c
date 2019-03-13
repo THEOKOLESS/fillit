@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amartino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 17:48:28 by amartino          #+#    #+#             */
-/*   Updated: 2019/02/12 11:24:01 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/13 17:12:25 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@ int		main(int argc, char const **argv)
 		ft_putstr("error: read");
 			exit(2);
 		}
-		else{
+		else
 			ft_fillit(fd);
-		}
 	}
 	else
 	{
-		ft_putstr("usage:");
+		ft_putstr("usage:\n");
 		exit(2);
 	}
 	return 0;

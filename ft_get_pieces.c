@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_pieces.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amartino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:55:58 by amartino          #+#    #+#             */
-/*   Updated: 2019/02/23 10:29:39 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/13 18:10:03 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ t_feel	*ft_get_pieces(char *file)
 	int		j;
 	int		nb_hashtag;
 	t_feel	*new;
+	t_feel	*tmp;
 	t_feel	*begin;
 
 	i = 0;
@@ -126,11 +127,13 @@ t_feel	*ft_get_pieces(char *file)
 		{
 			new->next = ft_tfeelnew((file + i + 1), j - i);
 			new->next->content[j - i] = '\0';
+			tmp = new;
 			new = new->next;
+			new->prev = tmp;
 		}
 		i = j + 1;
 	}
-	begin = ft_clean_column(begin);	
+	begin = ft_clean_column(begin);
 	begin = ft_clean_x(begin);
 	return (begin);
 }

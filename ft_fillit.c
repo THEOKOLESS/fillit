@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fillit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amartino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 11:05:09 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/06 17:28:56 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/13 18:24:50 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,22 @@
 void	ft_fillit(int fd)
 {
 	char		*file;
-	char		*map;
 	t_feel		*allp;
+	t_map		*map;
 
 	allp = NULL;
 	map = NULL;
 	file = ft_checks(fd);
+	if (!(map = ft_memalloc(sizeof(t_map))))
+		return ;
 	allp = ft_get_pieces(file);
 	ft_strdel(&file);
 	ft_tfeel_iter(allp, ft_get_coordinate);
+	ft_tfeel_iter(allp, ft_print_tfeel);
 	map = ft_solve(allp, map);
-	//ft_tfeel_iter(allp, ft_print_tfeel);
-	ft_strdel(&map);
+/*
+** 	ft_strdel(&map);
+*/
 }
 
 

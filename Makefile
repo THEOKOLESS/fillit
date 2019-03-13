@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amartino <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: amartino <amartino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/03/06 17:25:44 by amartino         ###   ########.fr        #
+#    Updated: 2019/03/13 19:41:50 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = fillit
 
 LIB = Libft/libft.a
 
-SRC = ft_fillit ft_checks ft_get_pieces main ft_init ft_get_coordinate\
+SRC = ft_fillit ft_checks ft_get_pieces main ft_tools ft_get_coordinate\
 ft_solve
 
 CC = gcc
@@ -97,7 +97,7 @@ COMMIT_MESSAGE ?= $(shell bash -c \
 				  'read -p "Enter a commit message:" pwd; echo $$pwd')
 
 git:
-	@git add *
+	@git add -f *
 	@git commit -m "$(COMMIT_MESSAGE)"
 	@git push
 
