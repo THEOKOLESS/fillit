@@ -6,7 +6,7 @@
 #    By: amartino <amartino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/03/13 19:41:50 by amartino         ###   ########.fr        #
+#    Updated: 2019/03/14 19:05:55 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,9 @@ ft_solve
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 
-DFLAGS = -Wall -Wextra -Werror -fsanitize=address,undefined -g3 -pedantic\
+DFLAGS = -g -Wall -Wextra -Werror -fsanitize=address,undefined -g3 -pedantic\
 		 -ansi -O2 -Wchar-subscripts -Wformat=2 -Wimplicit-int\
 		 -Werror-implicit-function-declaration -Wmain -Wparentheses\
 		 -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused\
@@ -33,80 +33,82 @@ DFLAGS = -Wall -Wextra -Werror -fsanitize=address,undefined -g3 -pedantic\
 		 -Wpacked -Wredundant-decls -Wnested-externs -Winline -Wlong-long\
 		 -Wunreachable-code
 
-DEPS = fillit.h
-
 OBJ = $(patsubst %, %.o, $(SRC))
+
+INCLUDES = -I.
+
+HEAD = ./fillit.h
 
 T ?= sample
 
-VAL ?= NO
+VAL ?= no
 
-FLAG ?= CFLAGS
+COMMIT_MESSAGE ?= $(shell bash -c \
+				  'read -p "Enter a commit message:" pwd; echo $$pwd')
 
 all: $(NAME)
 
-#il faudrait que le make se fasse seulement s'il y a des trucs a faire
-make_libft:
+$(NAME): $(OBJ) libft
+	@$(CC) -o $(NAME) $(OBJ) $(LIB)
+	@echo "\n$(CYAN)MAKE COMPLETE$(END)"
+
+$(OBJ): %.o: %.c $(HEAD)
+	@$(CC) $(CFLAGS) -c $< $(INCLUDES)
+	@echo "$(CFLAGS) \t\t $(GREEN)$<$(END)"
+
+libft: FORCE
+	@echo  "\n$(CYAN)Makefile libft$(END)\n"
 	@cd Libft && $(MAKE)
-	@echo  "$(CYAN)makefile libft$(END)"
 
-$(NAME): $(OBJ) make_libft
-	$(CC) -o $(NAME) $(OBJ) $(LIB)
-	@echo "$(GREEN)MAKE COMPLETE$(END)"
-
-t: re $(VAL)
+t: all $(VAL)
+	$(VALGRIND) ./fillit examples/$(T).fillit
 
 clean:
 	@rm -f $(OBJ)
+	@echo "$(YELLOW)OBJ$(END) \t\t were \t\t $(GREEN)clean$(END)\n"
 
 fclean: clean
 	@rm -rf $(NAME)
+	@echo "$(YELLOW)$(NAME)$(END) \t\t were \t\t $(GREEN)clean$(END)\n"
 
 re: fclean all
 
 .PHONY: clean fclean all re
+
+FORCE:
 
                              #####################
                              #                   #
                              #       IFEQ        #
                              #                   #
                              #####################
-
-$(OBJ):
-ifeq ($(FLAG), CFLAGS)
-	$(CC) -g $(CFLAGS) -c $(patsubst %, %.c, $(SRC))
-else ifeq ($(FLAG), NO)
-	$(CC) -g -c $(patsubst %, %.c, $(SRC))
-else
-	$(CC) -g $(DFLAGS) -c $(patsubst %, %.c, $(SRC))
+ifeq ($(f), no)
+CFLAGS = -g
+else ifeq ($(f), d)
+CFLAGS = $(DFLAGS)
 endif
 
 $(VAL):
-ifeq ($(VAL), NO)
-	./fillit examples/$(T).fillit
+ifeq ($(VAL), no)
+VALGRIND =
 else
-	valgrind --track-origins=yes --leak-check=full --show-leak-kinds=definite ./fillit examples/$(T).fillit
+VALGRIND = valgrind --track-origins=yes --leak-check=full --show-leak-kinds=definite
 endif
-#                            #####################
+                             #####################
                              #                   #
                              #        GIT        #
                              #                   #
                              #####################
-
-COMMIT_MESSAGE ?= $(shell bash -c \
-				  'read -p "Enter a commit message:" pwd; echo $$pwd')
-
 git:
 	@git add -f *
 	@git commit -m "$(COMMIT_MESSAGE)"
 	@git push
 
-#                            #####################
+                             #####################
                              #                   #
                              #       COLOR       #
                              #                   #
                              #####################
-
 RED = \x1b[31m
 GREEN = \x1b[32m
 YELLOW = \x1b[33m
@@ -114,6 +116,3 @@ BLUE = \x1b[34m
 MAGENTA = \x1b[35m
 CYAN = \x1b[36m
 END = \x1b[0m
-
-
-#ifneq (,$(findstring i,$(MAKEFLAGS)))
