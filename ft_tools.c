@@ -48,6 +48,8 @@ void	ft_print_tfeel(t_feel *elem)
 		return ;
 	write(1, elem->content, elem->content_size);
 	write(1, "\n", 1);
+	ft_putnbr(elem->piece_nb);
+	ft_putchar('\n');
 	while (i < 8)
 	{
 		ft_putchar('[');

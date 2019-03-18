@@ -6,7 +6,7 @@
 #    By: amartino <amartino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/03/14 19:05:55 by amartino         ###   ########.fr        #
+#    Updated: 2019/03/16 01:29:38 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,13 +52,14 @@ $(NAME): $(OBJ) libft
 	@$(CC) -o $(NAME) $(OBJ) $(LIB)
 	@echo "\n$(CYAN)MAKE COMPLETE$(END)"
 
-$(OBJ): %.o: %.c $(HEAD)
+%.o: %.c $(HEAD)
 	@$(CC) $(CFLAGS) -c $< $(INCLUDES)
 	@echo "$(CFLAGS) \t\t $(GREEN)$<$(END)"
 
 libft: FORCE
 	@echo  "\n$(CYAN)Makefile libft$(END)\n"
-	@cd Libft && $(MAKE)
+	@make -C Libft/
+#	@cd Libft && $(MAKE)
 
 t: all $(VAL)
 	$(VALGRIND) ./fillit examples/$(T).fillit

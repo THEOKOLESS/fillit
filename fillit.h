@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 17:52:40 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/14 19:04:33 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/18 18:15:41 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 **																			**
 ******************************************************************************
 */
-# include "Libft/libft.h"
+# include "libft/libft.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h> /*open etc */
@@ -43,6 +43,7 @@ typedef struct 	s_feel
 	char		*content;
 	int			coordinate[8];
 	int			start;
+	int			piece_nb;
 	struct s_feel	*prev;
 	struct s_feel	*next;
 }				t_feel;
@@ -99,9 +100,6 @@ void		ft_get_coordinate(t_feel *allp);
 **************
 */
 t_map		*ft_solve(t_feel *allp, t_map *map);
-int			ft_initialise(t_feel *allp, t_map *map);
-int			ft_recursive(t_feel *elem, t_map *map);
-int			ft_feel(const t_feel *elem, t_map *map, const int status);
 
 /*
 **************

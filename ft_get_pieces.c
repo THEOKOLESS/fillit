@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:55:58 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/13 18:10:03 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/18 18:20:14 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ t_feel	*ft_get_pieces(char *file)
 				i = -1;
 			begin = ft_tfeelnew((file + i + 1), j - i);
 			begin->content[j - i] = '\0';
+			begin->piece_nb = 0;
 			new = begin;
 		}
 		else
@@ -130,6 +131,7 @@ t_feel	*ft_get_pieces(char *file)
 			tmp = new;
 			new = new->next;
 			new->prev = tmp;
+			new->piece_nb = new->prev->piece_nb + 1;
 		}
 		i = j + 1;
 	}
