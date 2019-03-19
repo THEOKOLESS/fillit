@@ -110,6 +110,6 @@ t_feel		*ft_tfeelnew(char *content, size_t content_size);
 void		ft_tfeel_iter(t_feel *lst, void (*f)(t_feel *elem));
 void		ft_print_tfeel(t_feel *elem);
 int			ft_tfeel_count(t_feel *lst);
-
+int			ft_isalpha_n(const int c);
 
 #endif

@@ -78,3 +78,9 @@ int		ft_tfeel_count(t_feel *lst)
 	}
 	return (i);
 }
+
+int		ft_isalpha_n(const int c)
+{
+	return (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) || c == '\n' ? 1 : 0);
+}
+

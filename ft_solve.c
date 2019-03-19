@@ -6,21 +6,48 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:58:22 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/19 15:14:07 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/18 20:40:36 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static int		ft_isalpha_n(const int c)
+
+
+static	void 	ft_putmap(char *s)
 {
-	return (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) || c == '\n' ? 1 : 0);
+	int i;
+
+	i = 0;
+	ft_putchar(' ');
+	while (s[i])
+	{
+			ft_putchar(s[i++]);
+			ft_putchar(' ');
+	}
+	ft_putchar('\n');
+
 }
 
-
-static int		ft_feel(const t_feel *elem, t_map *map, int max_pos, const int mode)
+static	int		ft_check(const t_feel *elem, t_map *map, int max_pos)
 {
-	int 	i;
+	int		pos;
+	int		i;
+
+	i = -2;
+	while ((i += 2) < 8)
+	{
+		pos = elem->start + elem->coordinate[i] + \
+		(elem->coordinate[i + 1] * (map->square_size + 1));
+		if (pos > max_pos || ft_isalpha_n((int)map->map[pos]))
+			return (0);
+	}
+	return (1);
+}
+
+static int		ft_feel(const t_feel *elem, t_map *map, const int mode)
+{
+	int		i;
 	int		pos;
 	char	ascii;
 
@@ -29,49 +56,29 @@ static int		ft_feel(const t_feel *elem, t_map *map, int max_pos, const int mode)
 		ascii = 65 + elem->piece_nb;
 	else if (mode == 2)
 		ascii = '.';
-	if (mode == 0)
+	while ((i += 2) < 8)
 	{
-		while ((i += 2) < 8)
-		{
-			pos = elem->start + elem->coordinate[i] + (elem->coordinate[i + 1] * (map->square_size + 1));
-		//	printf("\033[34;01mpos : [%d] et max_pos : [%d]\033[00m\n", pos, max_pos);
-			if(pos > max_pos || ft_isalpha_n((int)map->map[pos]))
-			{
-		//		printf("\033[32;01m%d\033[00m\n", elem->start);
-				// printf("\033[35;01m%d\033[00m\n", elem->start + pos);
-				return(0);
-			}
-		}
-		return(1);
+		pos = elem->start + elem->coordinate[i] + \
+		(elem->coordinate[i + 1] * (map->square_size + 1));
+		map->map[pos] = ascii;
 	}
-	else
-	{
-		while ((i += 2) < 8)
-		{
-			pos = elem->start + elem->coordinate[i] + (elem->coordinate[i + 1] * (map->square_size + 1));
-			map->map[pos] = ascii;
-		}
-		return(1);
-	}
+	return (1);
 }
 
 static int		ft_recursive(t_feel *elem, t_map *map)
 {
 	int		max_pos;
 
-	max_pos = (map->square_size * map->square_size) + map->square_size - 2/*-3 ou -4*/;
-	while(elem)
+	max_pos = (map->square_size * map->square_size) + map->square_size - 2; /*pas le meme resultat avec - 3 mais bon malgres tous */
+	while (elem)
 	{
-		if (ft_feel(elem, map, max_pos, 0))
+		if (ft_check(elem, map, max_pos))
 		{
-				ft_feel(elem, map, max_pos, 1);
-				// ft_putstr(map->map);
-				if (ft_recursive(elem->next, map))
-					return (1);
-				// ft_putstr("b\n");
-				ft_feel(elem, map, max_pos, 2);
-				elem->start++;
-				// printf("\033[32;01m%d\033[00m\n", elem->start);
+			ft_feel(elem, map, 1);
+			if (ft_recursive(elem->next, map))
+				return (1);
+			ft_feel(elem, map, 2);
+			elem->start++;
 		}
 		else if (elem->start + 1 < max_pos)
 			elem->start++;
@@ -111,26 +118,17 @@ static int		ft_initialise(t_feel *allp, t_map *map, int mode)
 t_map	*ft_solve(t_feel *allp, t_map *map)
 {
 	if ((map->square_size = ft_initialise(allp, map, 0)) == 0)
-		return NULL;
+		return (NULL);
 	while (ft_recursive(allp, map) == 0)
 	{
 		map->square_size++;
 		if ((map->square_size = ft_initialise(allp, map, 1)) == 0)
-			return NULL;
+			return (NULL);
 	}
-	ft_putstr(map->map);
+	ft_putmap(map->map);
 	return (map);
 }
 
 /*
 ** ft_memset(*map, 1, map->square_size); hein ?
 */
-
-ft_putstr("pos is : ");
-ft_putnbr(pos);
-ft_putchar('\n');
-ft_putstr("max_pos is : ");
-ft_putnbr(max_pos);
-ft_putchar('\n');
-ft_putstr(map->map);
-ft_putchar('\n');
