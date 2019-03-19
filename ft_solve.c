@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:58:22 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/18 20:40:36 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/19 15:14:07 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,6 @@ static int		ft_feel(const t_feel *elem, t_map *map, int max_pos, const int mode)
 		{
 			pos = elem->start + elem->coordinate[i] + (elem->coordinate[i + 1] * (map->square_size + 1));
 			map->map[pos] = ascii;
-			// ft_putstr(map->map);
-			// ft_putchar('\n');
-
 		}
 		return(1);
 	}
@@ -62,7 +59,7 @@ static int		ft_recursive(t_feel *elem, t_map *map)
 {
 	int		max_pos;
 
-	max_pos = (map->square_size * map->square_size) + map->square_size /*-3 ou -4*/;
+	max_pos = (map->square_size * map->square_size) + map->square_size - 2/*-3 ou -4*/;
 	while(elem)
 	{
 		if (ft_feel(elem, map, max_pos, 0))
@@ -93,6 +90,7 @@ static int		ft_initialise(t_feel *allp, t_map *map, int mode)
 	int		i;
 	int		j;
 
+	tmp = map->square_size;
 	if (mode == 0)
 	{
 		tmp = ft_find_square(ft_tfeel_count(allp) * 4) + 0.999999;
@@ -127,3 +125,12 @@ t_map	*ft_solve(t_feel *allp, t_map *map)
 /*
 ** ft_memset(*map, 1, map->square_size); hein ?
 */
+
+ft_putstr("pos is : ");
+ft_putnbr(pos);
+ft_putchar('\n');
+ft_putstr("max_pos is : ");
+ft_putnbr(max_pos);
+ft_putchar('\n');
+ft_putstr(map->map);
+ft_putchar('\n');
