@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:55:58 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/18 18:20:14 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/25 18:25:26 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_feel	*ft_clean_column(t_feel *begin)
 		i = -1;
 		while (++i < 4)
 		{
-			//printf("\033[32;01mOK\033[00m\n");  //vert
 			j = i;
 			resultat = 1;
 			while (j < (int)(ft_strlen(tmp->content)))
@@ -81,9 +80,6 @@ t_feel	*ft_clean_x(t_feel	*begin)
 	}
 	return (begin);
 }
-
-
-
 
 t_feel	*ft_get_pieces(char *file)
 {

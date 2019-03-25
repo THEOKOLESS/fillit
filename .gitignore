@@ -1,3 +1,4 @@
+Libft/*.o
 *.o
 Libft/*.o
 *a.out*

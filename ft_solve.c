@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:58:22 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/18 20:40:36 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/25 18:08:57 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,22 @@
 
 
 
-static	void 	ft_putmap(char *s)
-{
-	int i;
-
-	i = 0;
-	ft_putchar(' ');
-	while (s[i])
-	{
-			ft_putchar(s[i++]);
-			ft_putchar(' ');
-	}
-	ft_putchar('\n');
-
-}
+/*
+** static	void 	ft_putmap(char *s)
+** {
+** 	int i;
+**
+** 	i = 0;
+** 	ft_putchar(' ');
+** 	while (s[i])
+** 	{
+** 			ft_putchar(s[i++]);
+** 			ft_putchar(' ');
+** 	}
+** 	ft_putchar('\n');
+**
+** }
+*/
 
 static	int		ft_check(const t_feel *elem, t_map *map, int max_pos)
 {
@@ -125,7 +127,7 @@ t_map	*ft_solve(t_feel *allp, t_map *map)
 		if ((map->square_size = ft_initialise(allp, map, 1)) == 0)
 			return (NULL);
 	}
-	ft_putmap(map->map);
+	ft_putstr(map->map);
 	return (map);
 }
 

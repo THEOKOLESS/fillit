@@ -6,7 +6,7 @@
 #    By: amartino <amartino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/03/16 01:29:38 by amartino         ###   ########.fr        #
+#    Updated: 2019/03/25 18:30:31 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,11 @@ ft_solve
 
 CC = gcc
 
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
-DFLAGS = -g -Wall -Wextra -Werror -fsanitize=address,undefined -g3 -pedantic\
+FFLAG =  -Wall -Wextra -Werror -fsanitize=address,undefined -g3
+
+DFLAGS = -Wall -Wextra -Werror -fsanitize=address,undefined -g3 -pedantic\
 		 -ansi -O2 -Wchar-subscripts -Wformat=2 -Wimplicit-int\
 		 -Werror-implicit-function-declaration -Wmain -Wparentheses\
 		 -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused\
@@ -49,7 +51,7 @@ COMMIT_MESSAGE ?= $(shell bash -c \
 all: $(NAME)
 
 $(NAME): $(OBJ) libft
-	@$(CC) -o $(NAME) $(OBJ) $(LIB)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB)
 	@echo "\n$(CYAN)MAKE COMPLETE$(END)"
 
 %.o: %.c $(HEAD)
@@ -87,12 +89,15 @@ ifeq ($(f), no)
 CFLAGS = -g
 else ifeq ($(f), d)
 CFLAGS = $(DFLAGS)
+else ifeq ($(f), f)
+CFLAGS = $(FFLAG)
 endif
 
 $(VAL):
 ifeq ($(VAL), no)
 VALGRIND =
 else
+CFLAGS += -g
 VALGRIND = valgrind --track-origins=yes --leak-check=full --show-leak-kinds=definite
 endif
                              #####################
