@@ -23,7 +23,6 @@ t_feel		*ft_tfeelnew(char *content, size_t content_size)
 		new_lst->content_size = content_size;
 	}
 	new_lst->next = NULL;
-	new_lst->prev = NULL;
 	return (new_lst);
 }
 
@@ -83,4 +82,3 @@ int		ft_isalpha_n(const int c)
 {
 	return (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) || c == '\n' ? 1 : 0);
 }
-

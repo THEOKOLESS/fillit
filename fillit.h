@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 17:52:40 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/18 18:15:41 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/26 00:11:53 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct 	s_feel
 	int			coordinate[8];
 	int			start;
 	int			piece_nb;
-	struct s_feel	*prev;
 	struct s_feel	*next;
 }				t_feel;
 
@@ -84,8 +83,6 @@ char		*ft_checks(int fd);
 ****************
 */
 t_feel		*ft_get_pieces(char *file);
-t_feel		*ft_clean_x(t_feel	*begin);
-t_feel		*ft_clean_column(t_feel *begin);
 
 /*
 ********************

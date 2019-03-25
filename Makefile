@@ -6,7 +6,7 @@
 #    By: amartino <amartino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/03/25 18:30:31 by amartino         ###   ########.fr        #
+#    Updated: 2019/03/25 19:55:51 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,8 @@ DFLAGS = -Wall -Wextra -Werror -fsanitize=address,undefined -g3 -pedantic\
 		 -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations\
 		 -Wpacked -Wredundant-decls -Wnested-externs -Winline -Wlong-long\
 		 -Wunreachable-code
+
+CFLAGS += -g
 
 OBJ = $(patsubst %, %.o, $(SRC))
 
@@ -97,7 +99,7 @@ $(VAL):
 ifeq ($(VAL), no)
 VALGRIND =
 else
-CFLAGS += -g
+#CFLAGS += -g
 VALGRIND = valgrind --track-origins=yes --leak-check=full --show-leak-kinds=definite
 endif
                              #####################
