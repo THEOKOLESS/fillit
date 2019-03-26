@@ -6,30 +6,11 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:58:22 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/25 18:37:18 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/26 16:01:42 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-
-
-/*
-** static	void 	ft_putmap(char *s)
-** {
-** 	int i;
-**
-** 	i = 0;
-** 	ft_putchar(' ');
-** 	while (s[i])
-** 	{
-** 			ft_putchar(s[i++]);
-** 			ft_putchar(' ');
-** 	}
-** 	ft_putchar('\n');
-**
-** }
-*/
 
 static	int		ft_check(const t_feel *elem, t_map *map, int max_pos)
 {
@@ -130,6 +111,24 @@ t_map	*ft_solve(t_feel *allp, t_map *map)
 	ft_putstr(map->map);
 	return (map);
 }
+
+
+/*
+** static	void 	ft_putmap(char *s)
+** {
+** 	int i;
+**
+** 	i = 0;
+** 	ft_putchar(' ');
+** 	while (s[i])
+** 	{
+** 			ft_putchar(s[i++]);
+** 			ft_putchar(' ');
+** 	}
+** 	ft_putchar('\n');
+**
+** }
+*/
 
 /*
 ** ft_memset(*map, 1, map->square_size); hein ?
