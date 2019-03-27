@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:55:58 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/26 17:03:00 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/27 21:25:17 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,16 @@ static t_feel	*ft_clean_x(t_feel *tmp)
 	while (tmp->content[i + 1] != '.' && tmp->content[i + 1] != '#')
 		i++;
 	max = (char*)ft_memchr_last(tmp->content, '#', 20) - tmp->content;
-	// printf("        %d\n", max);
 	while (i++ <= max)
 		if (tmp->content[i] != 'x')
 			size++;
-	// printf("[%d]\n", size);
 	if (!(dayson = (char*)malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	i = -1;
 	size = 0;
-	// printf("%d\n", ft_memcmp(tmp->content + 19, "\0", 1));
 	while (tmp->content[++i])
 		if (tmp->content[i] != 'x')
 			dayson[size++] = tmp->content[i];
-	// printf("%d\n", size);
 	dayson[size] = '\0';
 	ft_strdel(&(tmp->content));
 	tmp->content = dayson;

@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 17:52:40 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/26 00:11:53 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/27 22:07:54 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,14 @@ typedef struct 	s_feel
 	int			coordinate[8];
 	int			start;
 	int			piece_nb;
-	struct s_feel	*next;
+	// struct s_feel	*next;
 }				t_feel;
 
 typedef struct 	s_map
 {
 	char 		map[240];
 	int			square_size;
+	// t_list		*lst;
 }				t_map;
 
 /*
