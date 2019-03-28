@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 17:52:40 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/27 22:07:54 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/28 22:19:54 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,13 @@ typedef struct 	s_feel
 	int			coordinate[8];
 	int			start;
 	int			piece_nb;
-	// struct s_feel	*next;
 }				t_feel;
 
 typedef struct 	s_map
 {
 	char 		map[240];
 	int			square_size;
-	// t_list		*lst;
+	t_list		*lst;
 }				t_map;
 
 /*
@@ -83,31 +82,22 @@ char		*ft_checks(int fd);
 ** GET_PIECES **
 ****************
 */
-t_feel		*ft_get_pieces(char *file);
-
-/*
-********************
-** GET_COORDINATE **
-********************
-*/
-void		ft_get_coordinate(t_feel *allp);
+t_map		*ft_get_pieces(char *file, t_map *map);
 
 /*
 **************
 **  SOLVE	**
 **************
 */
-t_map		*ft_solve(t_feel *allp, t_map *map);
+t_map		*ft_solve(t_map *map);
 
 /*
 **************
 **  TOOLS	**
 **************
 */
-t_feel		*ft_tfeelnew(char *content, size_t content_size);
-void		ft_tfeel_iter(t_feel *lst, void (*f)(t_feel *elem));
-void		ft_print_tfeel(t_feel *elem);
-int			ft_tfeel_count(t_feel *lst);
+void		ft_get_coordinate(t_list *lst);
+void		ft_print_tfeel(t_list *lst);
 int			ft_isalpha_n(const int c);
 
 #endif

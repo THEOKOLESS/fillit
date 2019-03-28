@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:58:22 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/26 16:01:42 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/28 22:09:55 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,22 @@ static int		ft_feel(const t_feel *elem, t_map *map, const int mode)
 	return (1);
 }
 
-static int		ft_recursive(t_feel *elem, t_map *map)
+static int		ft_recursive(t_list *lst, t_map *map)
 {
+	t_feel 	*elem;
+	t_feel	*test;
 	int		max_pos;
 
 	max_pos = (map->square_size * map->square_size) + map->square_size - 2; /*pas le meme resultat avec - 3 mais bon malgres tous */
-	while (elem)
+	if (lst)
+		elem = lst->content;
+	while (lst)
 	{
+		test = lst->content;
 		if (ft_check(elem, map, max_pos))
 		{
 			ft_feel(elem, map, 1);
-			if (ft_recursive(elem->next, map))
+			if (ft_recursive(lst->next, map))
 				return (1);
 			ft_feel(elem, map, 2);
 			elem->start++;
@@ -74,7 +79,7 @@ static int		ft_recursive(t_feel *elem, t_map *map)
 	return (1);
 }
 
-static int		ft_initialise(t_feel *allp, t_map *map, int mode)
+static int		ft_initialise(t_map *map, int mode)
 {
 	float	tmp;
 	int		i;
@@ -83,7 +88,7 @@ static int		ft_initialise(t_feel *allp, t_map *map, int mode)
 	tmp = map->square_size;
 	if (mode == 0)
 	{
-		tmp = ft_find_square(ft_tfeel_count(allp) * 4) + 0.999999;
+		tmp = ft_find_square(ft_count_lst(map->lst, 0) * 4) + 0.999999;
 		map->square_size = (int)tmp;
 	}
 	i = map->square_size + 1;
@@ -98,16 +103,24 @@ static int		ft_initialise(t_feel *allp, t_map *map, int mode)
 	return ((int)tmp);
 }
 
-t_map	*ft_solve(t_feel *allp, t_map *map)
+t_map	*ft_solve(t_map *map)
 {
-	if ((map->square_size = ft_initialise(allp, map, 0)) == 0)
+	t_list	*tmp;
+	t_feel	*test;
+
+	tmp = map->lst;
+	if ((map->square_size = ft_initialise(map, 0)) == 0)
 		return (NULL);
-	while (ft_recursive(allp, map) == 0)
+	while (ft_recursive(map->lst, map) == 0)
 	{
+		map->lst = tmp;
+		test = map->lst->content;
 		map->square_size++;
-		if ((map->square_size = ft_initialise(allp, map, 1)) == 0)
+		if ((map->square_size = ft_initialise(map, 1)) == 0)
 			return (NULL);
+		test = map->lst->content;
 	}
+	map->lst = tmp;
 	ft_putstr(map->map);
 	return (map);
 }

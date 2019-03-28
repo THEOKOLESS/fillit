@@ -6,36 +6,30 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:55:58 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/27 21:25:17 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/28 22:04:44 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static t_feel	*ft_clean_column(t_feel *begin)
+static void		ft_clean_column(t_feel *feel)
 {
 	int		i;
 	int		j;
-	t_feel	*tmp;
 
-	tmp = begin;
-	while (tmp)
-	{
 		i = -1;
 		while (++i < 4)
 		{
 			j = i;
-			if (tmp->content[j] != '#' && tmp->content[j + 5] != '#'
-				&& tmp->content[j + 10] != '#' && tmp->content[j + 15] != '#')
+			if (feel->content[j] != '#' && feel->content[j + 5] != '#'
+				&& feel->content[j + 10] != '#' && feel->content[j + 15] != '#')
 				while ((j += 5) < 24)
-					tmp->content[j - 5] = 'x';
+					feel->content[j - 5] = 'x';
 		}
-		tmp = tmp->next;
-	}
-	return (begin);
+	return ;
 }
 
-static t_feel	*ft_clean_x(t_feel *tmp)
+static t_feel	*ft_clean_x(t_feel *feel)
 {
 	int		size;
 	int		max;
@@ -44,97 +38,115 @@ static t_feel	*ft_clean_x(t_feel *tmp)
 
 	i = -1;
 	size = 0;
-	while (tmp->content[i + 1] != '.' && tmp->content[i + 1] != '#')
+	while (feel->content[i + 1] != '.' && feel->content[i + 1] != '#')
 		i++;
-	max = (char*)ft_memchr_last(tmp->content, '#', 20) - tmp->content;
+	max = (char*)ft_memchr_last(feel->content, '#', 20) - feel->content;
 	while (i++ <= max)
-		if (tmp->content[i] != 'x')
+		if (feel->content[i] != 'x')
 			size++;
 	if (!(dayson = (char*)malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	i = -1;
 	size = 0;
-	while (tmp->content[++i])
-		if (tmp->content[i] != 'x')
-			dayson[size++] = tmp->content[i];
+	while (feel->content[++i])
+		if (feel->content[i] != 'x')
+			dayson[size++] = feel->content[i];
 	dayson[size] = '\0';
-	ft_strdel(&(tmp->content));
-	tmp->content = dayson;
-	tmp->content_size = ft_strlen(dayson);
-	return (tmp);
+	ft_strdel(&(feel->content));
+	feel->content = dayson;
+	feel->content_size = ft_strlen(dayson);
+	return (feel);
 }
 
-static t_feel	*ft_clean(t_feel *begin)
+static t_map	*ft_clean(t_map *map)
 {
 	int		i;
 	int		j;
-	t_feel	*tmp;
+	t_list	*tmp;
+	t_feel	*feel;
 
-	tmp = ft_clean_column(begin);
-	while (tmp)
+	tmp = map->lst;
+	while (map->lst)
 	{
+		feel = map->lst->content;
+		ft_clean_column(feel);
 		i = -5;
 		while ((i += 5) < 20)
 		{
 			j = i;
-			if (ft_memchr(tmp->content + j, '#', 4) == NULL)
-				while (j < i + 5 && tmp->content[j])
-					tmp->content[j++] = 'x';
+			if (ft_memchr(feel->content + j, '#', 4) == NULL)
+				while (j < i + 5 && feel->content[j])
+					feel->content[j++] = 'x';
 		}
-		tmp->content[19] = '\0';
-		tmp = ft_clean_x(tmp);
-		tmp = tmp->next;
+		feel->content[19] = '\0';
+		feel = ft_clean_x(feel);
+		map->lst->content = feel;
+		map->lst = map->lst->next;
 	}
-	return (begin);
+	map->lst = tmp;
+	return (map);
 }
 
-static t_feel	*ft_tfeel(t_feel *elem, char *file)
+static t_list	*ft_tfeel(t_list *elem, char *file)
 {
+	t_feel	*feel;
+	int		tmp;
+
+	feel = NULL;
 	if (!(elem))
 	{
-		if (!(elem = ft_tfeelnew((file), 20)))
+		if (!(elem = ft_lstnew((void*)&feel, sizeof(t_feel))))
 			return (NULL);
-		elem->content[19] = '\0';
-		elem->piece_nb = 0;
+		feel = elem->content;
+		if (!(feel->content = ft_strsub(file, 0, 19)))
+			return (NULL);
+		feel->piece_nb = 0;
+		feel->start = 0;
+		elem->content = feel;
 	}
 	else
 	{
-		if (!(elem->next = ft_tfeelnew((file), 20)))
+		if (!(elem->next = ft_lstnew((void*)&feel, sizeof(t_feel))))
 			return (NULL);
-		elem->next->content[19] = '\0';
-		elem->next->piece_nb = elem->piece_nb + 1;
+		feel = elem->content;
+		tmp = feel->piece_nb;
+		feel = elem->next->content;
+		if (!(feel->content = ft_strsub(file, 0, 19)))
+			return (NULL);
+		feel->piece_nb = tmp + 1;
+		feel->start = 0;
+		elem->next->content = feel;
 		elem = elem->next;
 	}
 	return (elem);
 }
 
-t_feel			*ft_get_pieces(char *file)
+t_map			*ft_get_pieces(char *file, t_map *map)
 {
 	int		i;
 	int		size;
-	t_feel	*begin;
-	t_feel	*new;
+	t_list	*tmp;
 
 	i = -21;
-	begin = NULL;
 	size = ft_strlen(file);
 	while ((i += 21) < size)
 	{
-		if (!begin)
+		if (!map->lst)
 		{
-			if (!(begin = ft_tfeel(begin, file + i)))
+			if (!(map->lst = ft_tfeel(map->lst, file + i)))
 				return (NULL);
-			new = begin;
+			tmp = map->lst;
 		}
 		else
 		{
-			if (!(new->next = ft_tfeel(new, file + i)))
+			if (!(map->lst->next = ft_tfeel(map->lst, file + i)))
 				return (NULL);
-			new = new->next;
+			map->lst = map->lst->next;
 		}
 	}
-	begin = ft_clean(begin);
-	return (begin);
+	map->lst = tmp;
+	map = ft_clean(map);
+	return (map);
 }
 
 /*

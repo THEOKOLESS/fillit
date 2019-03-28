@@ -6,7 +6,7 @@
 #    By: amartino <amartino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/03/25 19:55:51 by amartino         ###   ########.fr        #
+#    Updated: 2019/03/28 22:29:01 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,7 @@ NAME = fillit
 
 LIB = Libft/libft.a
 
-SRC = ft_fillit ft_checks ft_get_pieces main ft_tools ft_get_coordinate\
-ft_solve
+SRC = ft_fillit ft_checks ft_get_pieces main ft_tools ft_solve
 
 CC = gcc
 
@@ -47,8 +46,7 @@ T ?= sample
 
 VAL ?= no
 
-COMMIT_MESSAGE ?= $(shell bash -c \
-				  'read -p "Enter a commit message:" pwd; echo $$pwd')
+COMMIT_MESSAGE ?= $(shell bash -c 'read -p "Enter a commit message:" pwd; echo $$pwd')
 
 all: $(NAME)
 

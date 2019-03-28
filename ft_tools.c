@@ -6,57 +6,53 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 15:52:48 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/27 21:37:38 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/28 22:19:46 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-
-t_feel		*ft_tfeelnew(char *content, size_t content_size)
+void	ft_get_coordinate(t_list *lst)
 {
-	t_feel	*new_lst;
+	int		x;
+	int		y;
+	int		i;
+	int		j;
+	t_feel *elem;
 
-	if (!(new_lst = (t_feel*)malloc(sizeof(t_feel))))
-		return (NULL);
-	if (!content)
+	elem = lst->content;
+	x = 0;
+	y = 0;
+	i = -1;
+	j = 0;
+	while (elem->content[++i])
 	{
-		new_lst->content = NULL;
-		new_lst->content_size = 0;
-	}
-	else
-	{
-		if (!(new_lst->content = ft_memalloc(content_size)))
+		if (elem->content[i] == '#')
 		{
-			free(new_lst);
-			return (NULL);
+			elem->coordinate[j++] = x;
+			elem->coordinate[j++] = y;
 		}
-		new_lst->content = ft_memcpy(new_lst->content, content, content_size);
-		new_lst->content_size = content_size;
-	}
-	new_lst->next = NULL;
-	return (new_lst);
-}
-
-void	ft_tfeel_iter(t_feel *lst, void (*f)(t_feel *elem))
-{
-	t_feel		*current_lst;
-
-	current_lst = lst;
-	while (current_lst != NULL)
-	{
-		f(current_lst);
-		current_lst = current_lst->next;
+		x++;
+		if (elem->content[i] == '\n')
+		{
+			y++;
+			x = 0;
+		}
 	}
 }
 
-void	ft_print_tfeel(t_feel *elem)
+void	ft_print_tfeel(t_list *lst)
 {
+	t_feel *elem;
 	int 	i;
 
+	printf("\033[34;01m[OK]\033[00m\n");
 	i = 0;
+	elem = lst->content;
+	printf("\033[34;01m[OK]\033[00m\n");
 	if (!elem)
 		return ;
+	printf("\033[34;01m[OK]\033[00m\n");
 	write(1, elem->content, elem->content_size);
 	write(1, "\n", 1);
 	ft_putnbr(elem->piece_nb);
@@ -71,23 +67,6 @@ void	ft_print_tfeel(t_feel *elem)
 		ft_putchar('\n');
 	}
 	write(1, "\n\n", 2);
-}
-
-int		ft_tfeel_count(t_feel *lst)
-{
-	int 	i;
-	t_feel	*tmp;
-
-	if (!lst->next)
-		return (1);
-	tmp = lst->next;
-	i = 2;
-	while (tmp->next)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	return (i);
 }
 
 int		ft_isalpha_n(const int c)
