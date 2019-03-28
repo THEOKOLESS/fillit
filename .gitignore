@@ -1,5 +1,4 @@
-Libft/*.o
 *.o
-Libft/*.o
+libft/*.o
 *a.out*
 *dSYM
