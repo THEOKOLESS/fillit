@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:55:58 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/28 22:04:44 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/29 19:10:39 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@ static void		ft_clean_column(t_feel *feel)
 	int		i;
 	int		j;
 
-		i = -1;
-		while (++i < 4)
-		{
-			j = i;
-			if (feel->content[j] != '#' && feel->content[j + 5] != '#'
-				&& feel->content[j + 10] != '#' && feel->content[j + 15] != '#')
-				while ((j += 5) < 24)
-					feel->content[j - 5] = 'x';
-		}
+	i = -1;
+	feel->start = 0;
+	while (++i < 4)
+	{
+		j = i;
+		if (feel->content[j] != '#' && feel->content[j + 5] != '#'
+			&& feel->content[j + 10] != '#' && feel->content[j + 15] != '#')
+			while ((j += 5) < 24)
+				feel->content[j - 5] = 'x';
+	}
 	return ;
 }
 
@@ -36,19 +37,19 @@ static t_feel	*ft_clean_x(t_feel *feel)
 	int		i;
 	char	*dayson;
 
-	i = -1;
+	i = 0;
 	size = 0;
-	while (feel->content[i + 1] != '.' && feel->content[i + 1] != '#')
+	while (feel->content[i] != '.' && feel->content[i] != '#')
 		i++;
 	max = (char*)ft_memchr_last(feel->content, '#', 20) - feel->content;
-	while (i++ <= max)
-		if (feel->content[i] != 'x')
+	while (i <= max)
+		if (feel->content[i++] != 'x')
 			size++;
 	if (!(dayson = (char*)malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	i = -1;
 	size = 0;
-	while (feel->content[++i])
+	while (++i <= max)
 		if (feel->content[i] != 'x')
 			dayson[size++] = feel->content[i];
 	dayson[size] = '\0';
@@ -90,7 +91,6 @@ static t_map	*ft_clean(t_map *map)
 static t_list	*ft_tfeel(t_list *elem, char *file)
 {
 	t_feel	*feel;
-	int		tmp;
 
 	feel = NULL;
 	if (!(elem))
@@ -101,20 +101,16 @@ static t_list	*ft_tfeel(t_list *elem, char *file)
 		if (!(feel->content = ft_strsub(file, 0, 19)))
 			return (NULL);
 		feel->piece_nb = 0;
-		feel->start = 0;
 		elem->content = feel;
 	}
 	else
 	{
 		if (!(elem->next = ft_lstnew((void*)&feel, sizeof(t_feel))))
 			return (NULL);
-		feel = elem->content;
-		tmp = feel->piece_nb;
 		feel = elem->next->content;
-		if (!(feel->content = ft_strsub(file, 0, 19)))
+		if ((feel->content = ft_strsub(file, 0, 19)) == NULL)
 			return (NULL);
-		feel->piece_nb = tmp + 1;
-		feel->start = 0;
+		feel->piece_nb = ft_find_elem(elem, 0)->piece_nb + 1;
 		elem->next->content = feel;
 		elem = elem->next;
 	}

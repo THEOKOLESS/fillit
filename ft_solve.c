@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:58:22 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/28 22:09:55 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/29 19:03:36 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,14 @@ static int		ft_feel(const t_feel *elem, t_map *map, const int mode)
 
 static int		ft_recursive(t_list *lst, t_map *map)
 {
-	t_feel 	*elem;
-	t_feel	*test;
+	t_feel	*elem;
 	int		max_pos;
 
-	max_pos = (map->square_size * map->square_size) + map->square_size - 2; /*pas le meme resultat avec - 3 mais bon malgres tous */
+	max_pos = (map->square_size * map->square_size) + map->square_size - 2;
 	if (lst)
 		elem = lst->content;
 	while (lst)
 	{
-		test = lst->content;
 		if (ft_check(elem, map, max_pos))
 		{
 			ft_feel(elem, map, 1);
@@ -103,10 +101,9 @@ static int		ft_initialise(t_map *map, int mode)
 	return ((int)tmp);
 }
 
-t_map	*ft_solve(t_map *map)
+t_map			*ft_solve(t_map *map)
 {
 	t_list	*tmp;
-	t_feel	*test;
 
 	tmp = map->lst;
 	if ((map->square_size = ft_initialise(map, 0)) == 0)
@@ -114,18 +111,14 @@ t_map	*ft_solve(t_map *map)
 	while (ft_recursive(map->lst, map) == 0)
 	{
 		map->lst = tmp;
-		test = map->lst->content;
 		map->square_size++;
 		if ((map->square_size = ft_initialise(map, 1)) == 0)
 			return (NULL);
-		test = map->lst->content;
 	}
 	map->lst = tmp;
 	ft_putstr(map->map);
 	return (map);
 }
-
-
 /*
 ** static	void 	ft_putmap(char *s)
 ** {
@@ -142,7 +135,6 @@ t_map	*ft_solve(t_map *map)
 **
 ** }
 */
-
 /*
 ** ft_memset(*map, 1, map->square_size); hein ?
 */

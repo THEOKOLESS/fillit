@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 15:52:48 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/28 22:19:46 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/29 19:07:50 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_get_coordinate(t_list *lst)
 	int		y;
 	int		i;
 	int		j;
-	t_feel *elem;
+	t_feel	*elem;
 
 	elem = lst->content;
 	x = 0;
@@ -41,18 +41,32 @@ void	ft_get_coordinate(t_list *lst)
 	}
 }
 
+t_feel	*ft_find_elem(t_list *lst, int position)
+{
+	t_feel	*elem;
+	int		i;
+
+	i = 0;
+	elem = NULL;
+	if (!lst)
+		return (NULL);
+	while (i++ <= position && lst)
+	{
+		elem = lst->content;
+		lst = lst->next;
+	}
+	return (elem);
+}
+
 void	ft_print_tfeel(t_list *lst)
 {
-	t_feel *elem;
-	int 	i;
+	t_feel	*elem;
+	int		i;
 
-	printf("\033[34;01m[OK]\033[00m\n");
 	i = 0;
 	elem = lst->content;
-	printf("\033[34;01m[OK]\033[00m\n");
 	if (!elem)
 		return ;
-	printf("\033[34;01m[OK]\033[00m\n");
 	write(1, elem->content, elem->content_size);
 	write(1, "\n", 1);
 	ft_putnbr(elem->piece_nb);
@@ -69,7 +83,17 @@ void	ft_print_tfeel(t_list *lst)
 	write(1, "\n\n", 2);
 }
 
+void	ft_memset0(void *str, size_t len)
+{
+	unsigned long	i;
+
+	i = 0;
+	while (i < len)
+		((unsigned char*)str)[i++] = 0;
+}
+
 int		ft_isalpha_n(const int c)
 {
-	return (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) || c == '\n' ? 1 : 0);
+	return (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		|| c == '\n' ? 1 : 0);
 }

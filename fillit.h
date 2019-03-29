@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 17:52:40 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/28 22:19:54 by amartino         ###   ########.fr       */
+/*   Updated: 2019/03/29 19:00:36 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,9 @@ t_map		*ft_solve(t_map *map);
 **************
 */
 void		ft_get_coordinate(t_list *lst);
+t_feel		*ft_find_elem(t_list *lst, int position);
 void		ft_print_tfeel(t_list *lst);
 int			ft_isalpha_n(const int c);
+void		ft_memset0(void *str, size_t len);
 
 #endif
