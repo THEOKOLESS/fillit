@@ -64,7 +64,7 @@ libft: FORCE
 #	@cd Libft && $(MAKE)
 
 t: all $(VAL)
-	$(VALGRIND) ./fillit examples/$(T).fillit
+	$(VALGRIND) time ./fillit examples/$(T).fillit
 
 clean:
 	@rm -f $(OBJ)
@@ -75,6 +75,28 @@ fclean: clean
 	@echo "$(YELLOW)$(NAME)$(END) \t\t were \t\t $(GREEN)clean$(END)\n"
 
 re: fclean all
+
+teste : all
+		# $(VALGRIND) ./$(NAME) ./examples/bad/err0
+		# $(VALGRIND) ./$(NAME) ./examples/bad/err1
+		# $(VALGRIND) ./$(NAME) ./examples/bad/err2
+		# $(VALGRIND) ./$(NAME) ./examples/bad/err3
+		# $(VALGRIND) ./$(NAME) ./examples/bad/err4
+		# $(VALGRIND) ./$(NAME) ./examples/bad/err5
+		# $(VALGRIND) ./$(NAME) ./examples/bad/err6
+		# $(VALGRIND) ./$(NAME) ./examples/bad/err7
+		# $(VALGRIND) ./$(NAME)
+		# $(VALGRIND) ./$(NAME) ./.annex/test lol
+		# $(VALGRIND) ./$(NAME) ./.annex
+		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/binary1.txt
+		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/binary2.txt
+		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/binary3.txt
+		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/eof.txt
+		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/twentyseven.txt
+		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/twentysix.txt
+		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/wrongdot1.txt
+		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/wrongdot2.txt
+		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/wrongdot3.txt
 
 .PHONY: clean fclean all re
 

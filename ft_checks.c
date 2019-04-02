@@ -12,63 +12,83 @@
 
 #include "fillit.h"
 
-char	*ft_checks(int fd)
+static void		ft_error(int i)
+{
+	ft_putstr("error\n");
+	exit(i);
+}
+
+static int		ft_check_line(int j, char buf)
+{
+	if (buf != '\n')
+		j++;
+	else if (j > 4 || (j && j < 4))
+		ft_error(2);
+	else
+		j = 0;
+	return (j);
+}
+
+static int		ft_check_file_h(char *file, int i, int ch)
+{
+	ch++;
+	if (file[i + 1] != '#' && file[i - 1] != '#' &&\
+		file[i - 5] != '#' && file[i + 5] != '#')
+		ft_error(2);
+	return (ch);
+}
+
+static void		ft_check_file(char *file)
+{
+	int	i;
+	int	ch;
+	int	n;
+
+	n = 0;
+	i = -1;
+	ch = 0;
+	if (file[0] == '\n')
+		ft_error(2);
+	while (file[++i])
+	{
+		if (file[i] == '#')
+			ch = ft_check_file_h(file, i, ch);
+		if (file[i] == '\n' && (n++ + 1))
+			if ((file[i + 1] == '\n' && file[i + 2] != '\n'))
+			{
+				if (ch != 4 || n != 4)
+					ft_error(2);
+				ch = 0;
+				n = 0;
+				i++;
+			}
+	}
+	if (ch != 4 || n != 4)
+		ft_error(2);
+}
+
+char			*ft_checks(int fd)
 {
 	char		buf;
-	int			r;   /*read*/
-	int			i;	/*nombre de bit */
-	int			j;	/*ligne size count*/
-	char		*file;	/*how many piece*/
-	int			hc; /* how many piece */
+	int			i;
+	int			j;
+	char		*file;
 
 	i = 0;
-	r = 1;
 	j = 0;
-	hc = 1;
 	if (!(file = (char*)malloc(sizeof(char) * 546)))
-		return NULL;
-	while(read(fd, &buf, 1))
+		return (NULL);
+	while ((read(fd, &buf, 1)))
 	{
 		if (buf != '.' && buf != '#' && buf != '\n')
-		{
-			ft_putchar('[');
-			ft_putchar(buf);
-			ft_putstr("] is an invalid char !");
-			exit(2);
-		}
-		if (buf != '\n')
-			j++;
-		else if(j > 4) /* ligne trop longue */
-		{
-			ft_putstr("error:");
-			exit(2);
-		}
-		else
-			j = 0;
-		if (buf == '\n')
-		{
-			if (file[i - 1] == '\n')
-				hc++;
-		}
+			ft_error(2);
+		j = ft_check_line(j, buf);
 		file[i++] = buf;
-		if (i > 545)
-		{
-				ft_putstr("error : + de 26 tetriminos dans le fd ");
-				exit(2);
-		} 
-		
 	}
-	if (i < 19)
-	{
-		ft_putstr("error : - de 1 tetriminos dans le fd ");
-		exit(2);
-	}
-	if (r == -1)
-	{
-		ft_putstr("error read");
-		exit(2);
-	}
-
+	if (i > 546)
+		ft_error(2);
+	close(fd);
 	file[i] = '\0';
+	ft_check_file(file);
 	return (file);
 }
