@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 17:48:28 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/29 19:08:04 by amartino         ###   ########.fr       */
+/*   Updated: 2019/04/11 22:52:49 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,17 @@ int		main(int argc, char const **argv)
 {
 	int		fd;
 
-	fd = open(argv[1], O_RDONLY);
 	if (argc == 2)
 	{
+		fd = open(argv[1], O_RDONLY);
 		if (fd == -1)
 		{
 			ft_putstr("error: read");
 			exit(2);
 		}
 		else
-			ft_fillit(fd);
+			ft_fillit(fd); //verif retour 
+		close(fd);
 	}
 	else
 	{

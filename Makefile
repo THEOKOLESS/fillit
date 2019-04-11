@@ -6,7 +6,7 @@
 #    By: amartino <amartino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/03/28 22:29:01 by amartino         ###   ########.fr        #
+#    Updated: 2019/04/11 22:32:06 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC = ft_fillit ft_checks ft_get_pieces main ft_tools ft_solve
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror #warning -g
 
 FFLAG =  -Wall -Wextra -Werror -fsanitize=address,undefined -g3
 
@@ -76,15 +76,15 @@ fclean: clean
 
 re: fclean all
 
-teste : all
-		# $(VALGRIND) ./$(NAME) ./examples/bad/err0
-		# $(VALGRIND) ./$(NAME) ./examples/bad/err1
-		# $(VALGRIND) ./$(NAME) ./examples/bad/err2
-		# $(VALGRIND) ./$(NAME) ./examples/bad/err3
-		# $(VALGRIND) ./$(NAME) ./examples/bad/err4
-		# $(VALGRIND) ./$(NAME) ./examples/bad/err5
-		# $(VALGRIND) ./$(NAME) ./examples/bad/err6
-		# $(VALGRIND) ./$(NAME) ./examples/bad/err7
+teste : all $(VAL)
+		$(VALGRIND) ./$(NAME) .annex/tests/bad/err0
+		$(VALGRIND) ./$(NAME) .annex/tests/bad/err1
+		$(VALGRIND) ./$(NAME) .annex/tests/bad/err2
+		$(VALGRIND) ./$(NAME) .annex/tests/bad/err3
+		$(VALGRIND) ./$(NAME) .annex/tests/bad/err4
+		$(VALGRIND) ./$(NAME) .annex/tests/bad/err5
+		$(VALGRIND) ./$(NAME) .annex/tests/bad/err6
+		$(VALGRIND) ./$(NAME) .annex/tests/bad/err7
 		# $(VALGRIND) ./$(NAME)
 		# $(VALGRIND) ./$(NAME) ./.annex/test lol
 		# $(VALGRIND) ./$(NAME) ./.annex

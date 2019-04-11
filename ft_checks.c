@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amartino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 19:34:29 by amartino          #+#    #+#             */
-/*   Updated: 2019/02/21 15:12:32 by amartino         ###   ########.fr       */
+/*   Updated: 2019/04/11 22:55:21 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		ft_error(int i)
 {
-	ft_putstr("error\n");
+	ft_putstr_fd("error\n", 2);
 	exit(i);
 }
 
