@@ -6,7 +6,7 @@
 #    By: amartino <amartino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/04/11 22:32:06 by amartino         ###   ########.fr        #
+#    Updated: 2019/04/24 17:20:20 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC = ft_fillit ft_checks ft_get_pieces main ft_tools ft_solve
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror #warning -g
+CFLAGS = -Wall -Wextra -Werror  -fsanitize=address,undefined -g3#warning -g
 
 FFLAG =  -Wall -Wextra -Werror -fsanitize=address,undefined -g3
 

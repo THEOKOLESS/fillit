@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 19:34:29 by amartino          #+#    #+#             */
-/*   Updated: 2019/04/11 22:55:21 by amartino         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:25:17 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		ft_error(int i)
 {
-	ft_putstr_fd("error\n", 2);
+	ft_putstr_fd("error\n", 1);
 	exit(i);
 }
 
@@ -31,9 +31,20 @@ static int		ft_check_line(int j, char buf)
 
 static int		ft_check_file_h(char *file, int i, int ch)
 {
+	int		nb_pt;
+
 	ch++;
-	if (file[i + 1] != '#' && file[i - 1] != '#' &&\
-		file[i - 5] != '#' && file[i + 5] != '#')
+	nb_pt = 0;
+	if ((file[i + 1] == '.' && file[i + 2] == '#')
+		|| (file[i + 1] == '.' && file[i + 2] == '.' && file[i + 3] == '#'))
+		ft_error(2);
+	i++;
+	while (ch < 4 && file[i] && file[i] != '#')
+	{
+		nb_pt++;
+		i++;
+	}
+	if (nb_pt > 4)
 		ft_error(2);
 	return (ch);
 }
@@ -92,3 +103,14 @@ char			*ft_checks(int fd)
 	ft_check_file(file);
 	return (file);
 }
+
+/*
+** static int		ft_check_file_h(char *file, int i, int ch)
+** {
+** 	ch++;
+** 	if (file[i + 1] != '#' && file[i - 1] != '#' &&\
+** 		file[i - 5] != '#' && file[i + 5] != '#')
+** 		ft_error(2);
+** 	return (ch);
+** }
+*/

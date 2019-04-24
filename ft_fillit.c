@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 11:05:09 by amartino          #+#    #+#             */
-/*   Updated: 2019/04/11 22:43:43 by amartino         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:09:01 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	ft_fillit(int fd) //verif retour
 
 	map = NULL;
 	i = -1;
-	file = ft_checks(fd); //verif retour 
+	file = ft_checks(fd); //verif retour
 	if (!(map = ft_memalloc(sizeof(t_map)))) //verif retour
 		return ;
 	map = ft_get_pieces(file, map); //verif retour
 	ft_strdel(&file);
 	ft_lstiter(map->lst, ft_get_coordinate);
-	ft_lstiter(map->lst, ft_print_tfeel);
+	//ft_lstiter(map->lst, ft_print_tfeel);
 	map = ft_solve(map); //verif retour
 	while (++i < 4)
 		ft_strdel(&(ft_find_elem(map->lst, i)->content));
