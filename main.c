@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 17:48:28 by amartino          #+#    #+#             */
-/*   Updated: 2019/04/11 22:52:49 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/06 17:14:39 by amartinod        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,14 @@ int		main(int argc, char const **argv)
 			exit(2);
 		}
 		else
-			ft_fillit(fd); //verif retour 
+			if (ft_fillit(fd) == 0)
+			 	ft_putstr("error\n");
 		close(fd);
 	}
 	else
 	{
-		ft_putstr("usage:\n");
+		ft_putstr("usage: ./fillit ./path/file\n");
 		exit(2);
 	}
 	return (0);
 }
-/*
-** printf("\033[32;01mOK\033[00m\n");  //vert
-** printf("\033[32;01m%s\033[00m\n", file);
-*/

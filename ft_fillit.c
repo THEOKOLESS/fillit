@@ -6,34 +6,44 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 11:05:09 by amartino          #+#    #+#             */
-/*   Updated: 2019/04/24 17:09:01 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/06 17:14:59 by amartinod        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	ft_fillit(int fd) //verif retour
+static int		del(t_map **map)
+{
+	int			count;
+	int			i;
+
+	i = -1;
+	count = ft_count_lst((*map)->lst, 0);//diff avec '*(map)->lst' /priorité ?
+	while (++i < count)
+		ft_strdel(&(ft_find_elem((*map)->lst, i)->content));
+	ft_lstdel(&((*map)->lst), ft_memset0);
+	free(*map);
+	*map = NULL;
+	return (0);
+}
+
+int 			ft_fillit(int fd)
 {
 	char		*file;
 	t_map		*map;
-	int			i;
 
 	map = NULL;
-	i = -1;
-	file = ft_checks(fd); //verif retour
-	if (!(map = ft_memalloc(sizeof(t_map)))) //verif retour
-		return ;
-	map = ft_get_pieces(file, map); //verif retour
+	if ((file = ft_checks(fd)) == NULL)
+		return (0);
+	if (!(map = ft_memalloc(sizeof(t_map))))
+		return (0);
+	if ((map = ft_get_pieces(file, map)) == NULL)
+		return (del(&map));
 	ft_strdel(&file);
 	ft_lstiter(map->lst, ft_get_coordinate);
-	//ft_lstiter(map->lst, ft_print_tfeel);
-	map = ft_solve(map); //verif retour
-	while (++i < 4)
-		ft_strdel(&(ft_find_elem(map->lst, i)->content));
-	ft_lstdel(&map->lst, ft_memset0);
-	free(map);
-	map = NULL;
+	if ((map = ft_solve(map)) == NULL)
+		return (del(&map));
+	ft_putstr(map->map);
+	del(&map);
+	return (1);
 }
-/*
-** printf("\033[34;01m[%s]\033[00m\n", allp->content);
-*/

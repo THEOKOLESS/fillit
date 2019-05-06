@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 17:52:40 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/29 19:00:36 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/06 16:20:39 by amartinod        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h> /*open etc */
-# include <stdio.h> /*printf !!!*/
 
 /*
 ******************************************************************************
@@ -68,7 +67,7 @@ typedef struct 	s_map
 **  FILLIT	**
 **************
 */
-void		ft_fillit(int fd);
+int			ft_fillit(int fd);
 
 /*
 **************

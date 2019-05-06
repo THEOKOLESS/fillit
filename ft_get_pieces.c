@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:55:58 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/29 19:10:39 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/06 15:16:35 by amartinod        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,8 @@ t_map			*ft_get_pieces(char *file, t_map *map)
 		}
 	}
 	map->lst = tmp;
-	map = ft_clean(map);
+	if ((map = ft_clean(map)) == NULL)
+		return (NULL);
 	return (map);
 }
 

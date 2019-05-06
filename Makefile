@@ -6,7 +6,7 @@
 #    By: amartino <amartino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/04/24 17:20:20 by amartino         ###   ########.fr        #
+#    Updated: 2019/05/06 17:08:09 by amartinod        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC = ft_fillit ft_checks ft_get_pieces main ft_tools ft_solve
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror  -fsanitize=address,undefined -g3#warning -g
+CFLAGS = -Wall -Wextra -Werror
 
 FFLAG =  -Wall -Wextra -Werror -fsanitize=address,undefined -g3
 
@@ -33,8 +33,6 @@ DFLAGS = -Wall -Wextra -Werror -fsanitize=address,undefined -g3 -pedantic\
 		 -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations\
 		 -Wpacked -Wredundant-decls -Wnested-externs -Winline -Wlong-long\
 		 -Wunreachable-code
-
-CFLAGS += -g
 
 OBJ = $(patsubst %, %.o, $(SRC))
 
@@ -61,10 +59,9 @@ $(NAME): $(OBJ) libft
 libft: FORCE
 	@echo  "\n$(CYAN)Makefile libft$(END)\n"
 	@make -C Libft/
-#	@cd Libft && $(MAKE)
 
 t: all $(VAL)
-	$(VALGRIND) time ./fillit examples/$(T).fillit
+	$(VALGRIND) ./fillit examples/$(T).fillit
 
 clean:
 	@rm -f $(OBJ)
