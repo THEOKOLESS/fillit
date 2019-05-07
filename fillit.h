@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 17:52:40 by amartino          #+#    #+#             */
-/*   Updated: 2019/05/06 16:20:39 by amartinod        ###   ########.fr       */
+/*   Updated: 2019/05/07 17:48:58 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,22 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h> /*open etc */
+
+/*
+******************************************************************************
+**																			**
+**								----------									**
+**								  DEFINE									**
+**								----------									**
+**																			**
+******************************************************************************
+*/
+# define SPACE_MAX 546
+# define FALSE 0
+# define TRUE 1
+# define SUCCESS 0
+# define FAILURE -1
+# define STDOUT 1
 
 /*
 ******************************************************************************
@@ -97,8 +113,8 @@ t_map		*ft_solve(t_map *map);
 */
 void		ft_get_coordinate(t_list *lst);
 t_feel		*ft_find_elem(t_list *lst, int position);
-void		ft_print_tfeel(t_list *lst);
-int			ft_isalpha_n(const int c);
+void		*del(t_map **map);
 void		ft_memset0(void *str, size_t len);
+void		ft_print_tfeel(t_list *lst);
 
 #endif

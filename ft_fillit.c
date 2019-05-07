@@ -6,26 +6,11 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 11:05:09 by amartino          #+#    #+#             */
-/*   Updated: 2019/05/06 17:14:59 by amartinod        ###   ########.fr       */
+/*   Updated: 2019/05/07 17:25:40 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-static int		del(t_map **map)
-{
-	int			count;
-	int			i;
-
-	i = -1;
-	count = ft_count_lst((*map)->lst, 0);//diff avec '*(map)->lst' /priorité ?
-	while (++i < count)
-		ft_strdel(&(ft_find_elem((*map)->lst, i)->content));
-	ft_lstdel(&((*map)->lst), ft_memset0);
-	free(*map);
-	*map = NULL;
-	return (0);
-}
 
 int 			ft_fillit(int fd)
 {
@@ -34,16 +19,23 @@ int 			ft_fillit(int fd)
 
 	map = NULL;
 	if ((file = ft_checks(fd)) == NULL)
-		return (0);
+		return (FALSE);
 	if (!(map = ft_memalloc(sizeof(t_map))))
-		return (0);
+	{
+		ft_strdel(&file);
+		return (FALSE);
+	}
 	if ((map = ft_get_pieces(file, map)) == NULL)
-		return (del(&map));
+	{
+		ft_strdel(&file);
+		return (FALSE);
+	}
 	ft_strdel(&file);
 	ft_lstiter(map->lst, ft_get_coordinate);
 	if ((map = ft_solve(map)) == NULL)
-		return (del(&map));
+		return (FALSE);
 	ft_putstr(map->map);
 	del(&map);
-	return (1);
+	return (TRUE);
 }
+// ft_lstiter(map->lst, ft_print_tfeel);

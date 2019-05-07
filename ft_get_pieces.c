@@ -6,13 +6,13 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:55:58 by amartino          #+#    #+#             */
-/*   Updated: 2019/05/06 15:16:35 by amartinod        ###   ########.fr       */
+/*   Updated: 2019/05/07 17:45:32 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static void		ft_clean_column(t_feel *feel)
+static void		ft_find_empty_column_and_row(t_feel *feel)
 {
 	int		i;
 	int		j;
@@ -27,6 +27,15 @@ static void		ft_clean_column(t_feel *feel)
 			while ((j += 5) < 24)
 				feel->content[j - 5] = 'x';
 	}
+	i = -5;
+	while ((i += 5) < 20)
+	{
+		j = i;
+		if (ft_memchr(feel->content + j, '#', 4) == NULL)
+			while (j < i + 5 && feel->content[j])
+				feel->content[j++] = 'x';
+	}
+	feel->content[19] = '\0';
 	return ;
 }
 
@@ -61,8 +70,6 @@ static t_feel	*ft_clean_x(t_feel *feel)
 
 static t_map	*ft_clean(t_map *map)
 {
-	int		i;
-	int		j;
 	t_list	*tmp;
 	t_feel	*feel;
 
@@ -70,17 +77,9 @@ static t_map	*ft_clean(t_map *map)
 	while (map->lst)
 	{
 		feel = map->lst->content;
-		ft_clean_column(feel);
-		i = -5;
-		while ((i += 5) < 20)
-		{
-			j = i;
-			if (ft_memchr(feel->content + j, '#', 4) == NULL)
-				while (j < i + 5 && feel->content[j])
-					feel->content[j++] = 'x';
-		}
-		feel->content[19] = '\0';
-		feel = ft_clean_x(feel);
+		ft_find_empty_column_and_row(feel);
+		if ((feel = ft_clean_x(feel)) == NULL)
+			return (del(&map));
 		map->lst->content = feel;
 		map->lst = map->lst->next;
 	}
@@ -91,29 +90,24 @@ static t_map	*ft_clean(t_map *map)
 static t_list	*ft_tfeel(t_list *elem, char *file)
 {
 	t_feel	*feel;
+	int		nb;
 
 	feel = NULL;
-	if (!(elem))
+	if (elem)
 	{
-		if (!(elem = ft_lstnew((void*)&feel, sizeof(t_feel))))
-			return (NULL);
-		feel = elem->content;
-		if (!(feel->content = ft_strsub(file, 0, 19)))
-			return (NULL);
-		feel->piece_nb = 0;
-		elem->content = feel;
-	}
-	else
-	{
-		if (!(elem->next = ft_lstnew((void*)&feel, sizeof(t_feel))))
-			return (NULL);
-		feel = elem->next->content;
-		if ((feel->content = ft_strsub(file, 0, 19)) == NULL)
-			return (NULL);
-		feel->piece_nb = ft_find_elem(elem, 0)->piece_nb + 1;
-		elem->next->content = feel;
+		nb = ((t_feel*)elem->content)->piece_nb + 1;
 		elem = elem->next;
 	}
+	else
+		nb = 0;
+	if ((elem = ft_lstnew((void*)&feel, sizeof(t_feel))) == NULL)
+		return (NULL);
+	if ((((t_feel*)elem->content)->content = ft_strsub(file, 0, 19)) == NULL)
+	{
+		ft_lstdel(&elem, ft_memset0);
+		return (NULL);
+	}
+	((t_feel*)elem->content)->piece_nb = nb;
 	return (elem);
 }
 
@@ -123,22 +117,17 @@ t_map			*ft_get_pieces(char *file, t_map *map)
 	int		size;
 	t_list	*tmp;
 
-	i = -21;
 	size = ft_strlen(file);
-	while ((i += 21) < size)
+	if (!(map->lst = ft_tfeel(map->lst, file)))
+		return (del(&map));
+	tmp = map->lst;
+	i = 21;
+	while (i < size)
 	{
-		if (!map->lst)
-		{
-			if (!(map->lst = ft_tfeel(map->lst, file + i)))
-				return (NULL);
-			tmp = map->lst;
-		}
-		else
-		{
-			if (!(map->lst->next = ft_tfeel(map->lst, file + i)))
-				return (NULL);
-			map->lst = map->lst->next;
-		}
+		if ((map->lst->next = ft_tfeel(map->lst, file + i)) == NULL)
+			return (del(&map));
+		map->lst = map->lst->next;
+		i += 21;
 	}
 	map->lst = tmp;
 	if ((map = ft_clean(map)) == NULL)

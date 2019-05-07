@@ -6,13 +6,17 @@
 #    By: amartino <amartino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/05/06 17:08:09 by amartinod        ###   ########.fr        #
+#    Updated: 2019/05/07 17:58:56 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fillit
 
-LIB = Libft/libft.a
+LIB_DIR = libft
+
+LIB = libft.a
+
+LIB_PATH = $(LIB_DIR)/$(LIB)
 
 SRC = ft_fillit ft_checks ft_get_pieces main ft_tools ft_solve
 
@@ -44,12 +48,14 @@ T ?= sample
 
 VAL ?= no
 
-COMMIT_MESSAGE ?= $(shell bash -c 'read -p "Enter a commit message:" pwd; echo $$pwd')
+REQUEST = 'read -p "Enter a commit message:" pwd; echo $$pwd'
+
+COMMIT_MESSAGE ?= $(shell bash -c $(REQUEST))
 
 all: $(NAME)
 
 $(NAME): $(OBJ) libft
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB_PATH)
 	@echo "\n$(CYAN)MAKE COMPLETE$(END)"
 
 %.o: %.c $(HEAD)
@@ -58,7 +64,7 @@ $(NAME): $(OBJ) libft
 
 libft: FORCE
 	@echo  "\n$(CYAN)Makefile libft$(END)\n"
-	@make -C Libft/
+	@make -C $(LIB_DIR)
 
 t: all $(VAL)
 	$(VALGRIND) ./fillit examples/$(T).fillit
@@ -66,10 +72,12 @@ t: all $(VAL)
 clean:
 	@rm -f $(OBJ)
 	@echo "$(YELLOW)OBJ$(END) \t\t were \t\t $(GREEN)clean$(END)\n"
+	@$(MAKE) clean -C $(LIB_DIR)
 
 fclean: clean
 	@rm -rf $(NAME)
 	@echo "$(YELLOW)$(NAME)$(END) \t\t were \t\t $(GREEN)clean$(END)\n"
+	@$(MAKE) fclean -C $(LIB_DIR)
 
 re: fclean all
 

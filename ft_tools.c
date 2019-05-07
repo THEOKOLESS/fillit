@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 15:52:48 by amartino          #+#    #+#             */
-/*   Updated: 2019/03/29 19:07:50 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:48:00 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,34 @@ t_feel	*ft_find_elem(t_list *lst, int position)
 	return (elem);
 }
 
+void	*del(t_map **map)
+{
+	int			count;
+	int			i;
+
+	i = -1;
+	count = 0;
+	if ((*map)->lst)
+	{
+		count = ft_count_lst((*map)->lst, 0);//diff avec '*(map)->lst' /priorité ?
+		while (++i < count)
+			ft_strdel(&(ft_find_elem((*map)->lst, i)->content));
+		ft_lstdel(&((*map)->lst), ft_memset0);
+	}
+	free(*map);
+	*map = NULL;
+	return (NULL);
+}
+
+void	ft_memset0(void *str, size_t len)
+{
+	unsigned long	i;
+
+	i = 0;
+	while (i < len)
+		((unsigned char*)str)[i++] = 0;
+}
+
 void	ft_print_tfeel(t_list *lst)
 {
 	t_feel	*elem;
@@ -81,19 +109,4 @@ void	ft_print_tfeel(t_list *lst)
 		ft_putchar('\n');
 	}
 	write(1, "\n\n", 2);
-}
-
-void	ft_memset0(void *str, size_t len)
-{
-	unsigned long	i;
-
-	i = 0;
-	while (i < len)
-		((unsigned char*)str)[i++] = 0;
-}
-
-int		ft_isalpha_n(const int c)
-{
-	return (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-		|| c == '\n' ? 1 : 0);
 }

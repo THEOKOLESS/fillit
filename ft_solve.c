@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:58:22 by amartino          #+#    #+#             */
-/*   Updated: 2019/05/06 16:38:44 by amartinod        ###   ########.fr       */
+/*   Updated: 2019/05/07 17:37:00 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static	int		ft_check(const t_feel *elem, t_map *map, int max_pos)
 	{
 		pos = elem->start + elem->coordinate[i] + \
 		(elem->coordinate[i + 1] * (map->square_size + 1));
-		if (pos > max_pos || ft_isalpha_n((int)map->map[pos]))
+		if (pos > max_pos || ft_isalpha((int)map->map[pos])
+			|| (map->map[pos] == '\n'))
 			return (0);
 	}
 	return (1);
@@ -107,33 +108,14 @@ t_map			*ft_solve(t_map *map)
 
 	tmp = map->lst;
 	if ((map->square_size = ft_initialise(map, 0)) == 0)
-		return (NULL);
+		return (del(&map));
 	while (ft_recursive(map->lst, map) == 0)
 	{
 		map->lst = tmp;
 		map->square_size++;
 		if ((map->square_size = ft_initialise(map, 1)) == 0)
-			return (NULL);
+			return (del(&map));
 	}
 	map->lst = tmp;
 	return (map);
 }
-/*
-** static	void 	ft_putmap(char *s)
-** {
-** 	int i;
-**
-** 	i = 0;
-** 	ft_putchar(' ');
-** 	while (s[i])
-** 	{
-** 			ft_putchar(s[i++]);
-** 			ft_putchar(' ');
-** 	}
-** 	ft_putchar('\n');
-**
-** }
-*/
-/*
-** ft_memset(*map, 1, map->square_size); hein ?
-*/
