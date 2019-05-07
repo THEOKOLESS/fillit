@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 19:34:29 by amartino          #+#    #+#             */
-/*   Updated: 2019/05/07 17:21:45 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/07 18:20:16 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ char			*ft_checks(int fd)
 
 	i = 0;
 	j = 0;
-	ret = 0;
 	if (!(file = (char*)malloc(sizeof(char) * SPACE_MAX)))
 		return (NULL);
 	while ((ret = read(fd, &buf, 1) > SUCCESS))

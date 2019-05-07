@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:55:58 by amartino          #+#    #+#             */
-/*   Updated: 2019/05/07 17:45:32 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/07 18:26:54 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@ static void		ft_find_empty_column_and_row(t_feel *feel)
 	int		i;
 	int		j;
 
-	i = -1;
+	i = 0;
 	feel->start = 0;
-	while (++i < 4)
+	while (i < 4)
 	{
 		j = i;
 		if (feel->content[j] != '#' && feel->content[j + 5] != '#'
 			&& feel->content[j + 10] != '#' && feel->content[j + 15] != '#')
 			while ((j += 5) < 24)
 				feel->content[j - 5] = 'x';
+		i++;
 	}
 	i = -5;
 	while ((i += 5) < 20)
@@ -113,8 +114,8 @@ static t_list	*ft_tfeel(t_list *elem, char *file)
 
 t_map			*ft_get_pieces(char *file, t_map *map)
 {
-	int		i;
-	int		size;
+	size_t	i;
+	size_t	size;
 	t_list	*tmp;
 
 	size = ft_strlen(file);

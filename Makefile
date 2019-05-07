@@ -6,7 +6,7 @@
 #    By: amartino <amartino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/05/07 17:58:56 by amartino         ###   ########.fr        #
+#    Updated: 2019/05/07 18:02:09 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,29 +81,7 @@ fclean: clean
 
 re: fclean all
 
-teste : all $(VAL)
-		$(VALGRIND) ./$(NAME) .annex/tests/bad/err0
-		$(VALGRIND) ./$(NAME) .annex/tests/bad/err1
-		$(VALGRIND) ./$(NAME) .annex/tests/bad/err2
-		$(VALGRIND) ./$(NAME) .annex/tests/bad/err3
-		$(VALGRIND) ./$(NAME) .annex/tests/bad/err4
-		$(VALGRIND) ./$(NAME) .annex/tests/bad/err5
-		$(VALGRIND) ./$(NAME) .annex/tests/bad/err6
-		$(VALGRIND) ./$(NAME) .annex/tests/bad/err7
-		# $(VALGRIND) ./$(NAME)
-		# $(VALGRIND) ./$(NAME) ./.annex/test lol
-		# $(VALGRIND) ./$(NAME) ./.annex
-		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/binary1.txt
-		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/binary2.txt
-		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/binary3.txt
-		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/eof.txt
-		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/twentyseven.txt
-		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/twentysix.txt
-		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/wrongdot1.txt
-		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/wrongdot2.txt
-		# $(VALGRIND) ./$(NAME) ./examples/bad/otherTest/wrongdot3.txt
-
-.PHONY: clean fclean all re
+.PHONY: clean fclean all re libft t FORCE git
 
 FORCE:
 
@@ -124,8 +102,9 @@ $(VAL):
 ifeq ($(VAL), no)
 VALGRIND =
 else
-#CFLAGS += -g
-VALGRIND = valgrind --track-origins=yes --leak-check=full --show-leak-kinds=definite
+CFLAGS += -g
+SHOW_LEAK = --show-leak-kinds=definite
+VALGRIND = valgrind --track-origins=yes --leak-check=full $(SHOW_LEAK)
 endif
                              #####################
                              #                   #
@@ -133,7 +112,7 @@ endif
                              #                   #
                              #####################
 git:
-	@git add -f *
+	@git add -f -A
 	@git commit -m "$(COMMIT_MESSAGE)"
 	@git push
 

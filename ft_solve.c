@@ -6,13 +6,13 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:58:22 by amartino          #+#    #+#             */
-/*   Updated: 2019/05/07 17:37:00 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/07 18:28:27 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static	int		ft_check(const t_feel *elem, t_map *map, int max_pos)
+static	int		ft_check(const t_feel *elem, t_map *map, int max_pos) //int8t
 {
 	int		pos;
 	int		i;
