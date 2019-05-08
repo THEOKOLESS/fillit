@@ -6,13 +6,13 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 11:05:09 by amartino          #+#    #+#             */
-/*   Updated: 2019/05/07 18:13:54 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/08 15:52:38 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int 			ft_fillit(int fd)
+int		ft_fillit(int fd)
 {
 	char		*file;
 	t_map		*map;
@@ -38,4 +38,3 @@ int 			ft_fillit(int fd)
 	del(&map);
 	return (TRUE);
 }
-// ft_lstiter(map->lst, ft_print_tfeel);

@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 17:48:28 by amartino          #+#    #+#             */
-/*   Updated: 2019/05/07 18:15:40 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/08 15:53:51 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ int		main(int argc, char const **argv)
 			exit(STDOUT);
 		}
 		else
+		{
 			if (ft_fillit(fd) == FALSE)
-			 	ft_putstr("error\n");
+				ft_putstr("error\n");
+		}
 		close(fd);
 	}
 	else

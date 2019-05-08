@@ -1,4 +1,0 @@
-*.o
-libft/*.o
-*a.out*
-*dSYM

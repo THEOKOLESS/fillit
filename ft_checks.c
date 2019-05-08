@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 19:34:29 by amartino          #+#    #+#             */
-/*   Updated: 2019/05/07 18:20:16 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/08 16:16:26 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void		ft_error(int i, char **file)
 {
 	ft_strdel(file);
-	ft_putstr_fd("error\n", 1);
+	ft_putstr_fd("error\n", STDOUT);
 	exit(i);
 }
 
@@ -30,52 +30,52 @@ static int		ft_check_line(int j, char buf, char *file)
 	return (j);
 }
 
-static int		ft_check_file_h(char *file, int i, int ch)
+static int		ft_check_file_h(char *file, int i, int hash_counter)
 {
-	int		nb_pt;
+	int			nb_pt;
 
-	ch++;
+	hash_counter++;
 	nb_pt = 0;
 	if ((file[i + 1] == '.' && file[i + 2] == '#')
 		|| (file[i + 1] == '.' && file[i + 2] == '.' && file[i + 3] == '#'))
 		ft_error(STDOUT, &file);
 	i++;
-	while (ch < 4 && file[i] && file[i] != '#')
+	while (hash_counter < 4 && file[i] && file[i] != '#')
 	{
 		nb_pt++;
 		i++;
 	}
 	if (nb_pt > 4)
-		ft_error(1, &file);
-	return (ch);
+		ft_error(STDOUT, &file);
+	return (hash_counter);
 }
 
 static void		ft_check_file(char *file)
 {
-	int	i;
-	int	ch;
-	int	n;
+	int			i;
+	int			hash_counter;
+	int			line_counter;
 
-	n = 0;
+	line_counter = 0;
 	i = -1;
-	ch = 0;
+	hash_counter = 0;
 	if (file[0] == '\n')
 		ft_error(STDOUT, &file);
 	while (file[++i])
 	{
 		if (file[i] == '#')
-			ch = ft_check_file_h(file, i, ch);
-		if (file[i] == '\n' && (n++ + 1))
+			hash_counter = ft_check_file_h(file, i, hash_counter);
+		if (file[i] == '\n' && (line_counter++ + 1))
 			if ((file[i + 1] == '\n' && file[i + 2] != '\n'))
 			{
-				if (ch != 4 || n != 4)
+				if (hash_counter != 4 || line_counter != 4)
 					ft_error(STDOUT, &file);
-				ch = 0;
-				n = 0;
+				hash_counter = 0;
+				line_counter = 0;
 				i++;
 			}
 	}
-	if (ch != 4 || n != 4)
+	if (hash_counter != 4 || line_counter != 4)
 		ft_error(STDOUT, &file);
 }
 

@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:55:58 by amartino          #+#    #+#             */
-/*   Updated: 2019/05/07 18:26:54 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/08 16:17:40 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static void		ft_find_empty_column_and_row(t_feel *feel)
 {
-	int		i;
-	int		j;
+	int			i;
+	int			j;
 
 	i = 0;
 	feel->start = 0;
-	while (i < 4)
+	while (i < NB_OF_COLUMNS)
 	{
 		j = i;
 		if (feel->content[j] != '#' && feel->content[j + 5] != '#'
@@ -28,13 +28,14 @@ static void		ft_find_empty_column_and_row(t_feel *feel)
 				feel->content[j - 5] = 'x';
 		i++;
 	}
-	i = -5;
-	while ((i += 5) < 20)
+	i = 0;
+	while (i < 20)
 	{
 		j = i;
-		if (ft_memchr(feel->content + j, '#', 4) == NULL)
+		if (ft_memchr(feel->content + j, '#', NB_OF_COLUMNS) == NULL)
 			while (j < i + 5 && feel->content[j])
 				feel->content[j++] = 'x';
+		i += 5;
 	}
 	feel->content[19] = '\0';
 	return ;
@@ -42,10 +43,10 @@ static void		ft_find_empty_column_and_row(t_feel *feel)
 
 static t_feel	*ft_clean_x(t_feel *feel)
 {
-	int		size;
-	int		max;
-	int		i;
-	char	*dayson;
+	int			size;
+	int			max;
+	int			i;
+	char		*dayson;
 
 	i = 0;
 	size = 0;
@@ -71,8 +72,8 @@ static t_feel	*ft_clean_x(t_feel *feel)
 
 static t_map	*ft_clean(t_map *map)
 {
-	t_list	*tmp;
-	t_feel	*feel;
+	t_list		*tmp;
+	t_feel		*feel;
 
 	tmp = map->lst;
 	while (map->lst)
@@ -90,8 +91,8 @@ static t_map	*ft_clean(t_map *map)
 
 static t_list	*ft_tfeel(t_list *elem, char *file)
 {
-	t_feel	*feel;
-	int		nb;
+	t_feel		*feel;
+	int			nb;
 
 	feel = NULL;
 	if (elem)
@@ -114,21 +115,21 @@ static t_list	*ft_tfeel(t_list *elem, char *file)
 
 t_map			*ft_get_pieces(char *file, t_map *map)
 {
-	size_t	i;
-	size_t	size;
-	t_list	*tmp;
+	size_t		i;
+	size_t		size;
+	t_list		*tmp;
 
 	size = ft_strlen(file);
 	if (!(map->lst = ft_tfeel(map->lst, file)))
 		return (del(&map));
 	tmp = map->lst;
-	i = 21;
+	i = NB_OF_CHAR_PER_PIECE;
 	while (i < size)
 	{
 		if ((map->lst->next = ft_tfeel(map->lst, file + i)) == NULL)
 			return (del(&map));
 		map->lst = map->lst->next;
-		i += 21;
+		i += NB_OF_CHAR_PER_PIECE;
 	}
 	map->lst = tmp;
 	if ((map = ft_clean(map)) == NULL)

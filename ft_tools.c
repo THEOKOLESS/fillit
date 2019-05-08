@@ -6,13 +6,13 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 15:52:48 by amartino          #+#    #+#             */
-/*   Updated: 2019/05/07 15:48:00 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/08 16:24:08 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	ft_get_coordinate(t_list *lst)
+void		ft_get_coordinate(t_list *lst)
 {
 	int		x;
 	int		y;
@@ -41,7 +41,7 @@ void	ft_get_coordinate(t_list *lst)
 	}
 }
 
-t_feel	*ft_find_elem(t_list *lst, int position)
+t_feel		*ft_find_elem(t_list *lst, int position)
 {
 	t_feel	*elem;
 	int		i;
@@ -58,16 +58,16 @@ t_feel	*ft_find_elem(t_list *lst, int position)
 	return (elem);
 }
 
-void	*del(t_map **map)
+void		*del(t_map **map)
 {
-	int			count;
-	int			i;
+	int		count;
+	int		i;
 
 	i = -1;
 	count = 0;
 	if ((*map)->lst)
 	{
-		count = ft_count_lst((*map)->lst, 0);//diff avec '*(map)->lst' /priorité ?
+		count = ft_count_lst((*map)->lst, 0);
 		while (++i < count)
 			ft_strdel(&(ft_find_elem((*map)->lst, i)->content));
 		ft_lstdel(&((*map)->lst), ft_memset0);
@@ -77,7 +77,7 @@ void	*del(t_map **map)
 	return (NULL);
 }
 
-void	ft_memset0(void *str, size_t len)
+void		ft_memset0(void *str, size_t len)
 {
 	unsigned long	i;
 
@@ -86,7 +86,7 @@ void	ft_memset0(void *str, size_t len)
 		((unsigned char*)str)[i++] = 0;
 }
 
-void	ft_print_tfeel(t_list *lst)
+void		ft_print_tfeel(t_list *lst)
 {
 	t_feel	*elem;
 	int		i;
