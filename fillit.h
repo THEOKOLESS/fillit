@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 17:52:40 by amartino          #+#    #+#             */
-/*   Updated: 2019/05/08 16:00:59 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/10 17:53:01 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 */
 # include "libft/libft.h"
 # include <sys/types.h>
-# include <sys/stat.h>
 # include <fcntl.h>
 
 /*
@@ -104,6 +103,7 @@ int				ft_fillit(int fd);
 **************
 */
 char			*ft_checks(int fd);
+void			ft_check_separate_hash(t_map *map);
 
 /*
 ****************

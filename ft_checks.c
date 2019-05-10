@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 19:34:29 by amartino          #+#    #+#             */
-/*   Updated: 2019/05/08 16:16:26 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/10 17:51:08 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,20 @@ static int		ft_check_line(int j, char buf, char *file)
 
 static int		ft_check_file_h(char *file, int i, int hash_counter)
 {
-	int			nb_pt;
+	int			nb_point;
 
 	hash_counter++;
-	nb_pt = 0;
-	if ((file[i + 1] == '.' && file[i + 2] == '#')
-		|| (file[i + 1] == '.' && file[i + 2] == '.' && file[i + 3] == '#'))
+	nb_point = 0;
+	if ((file[i + 1] == '.' && file[i + 2] == '#') || (file[i + 1] == '.'
+	&& file[i + 2] == '.' && file[i + 3] == '#'))
 		ft_error(STDOUT, &file);
 	i++;
 	while (hash_counter < 4 && file[i] && file[i] != '#')
 	{
-		nb_pt++;
+		nb_point++;
 		i++;
 	}
-	if (nb_pt > 4)
+	if (nb_point > 4)
 		ft_error(STDOUT, &file);
 	return (hash_counter);
 }

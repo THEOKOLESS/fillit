@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:55:58 by amartino          #+#    #+#             */
-/*   Updated: 2019/05/08 16:17:40 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/10 11:34:45 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,3 @@ t_map			*ft_get_pieces(char *file, t_map *map)
 		return (NULL);
 	return (map);
 }
-
-/*
-** printf("\033[32;01mOK\033[00m\n");  //vert
-** printf("\033[32;01m%s\033[00m\n", file);
-*/

@@ -6,7 +6,7 @@
 #    By: amartino <amartino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/20 11:34:23 by amartino          #+#    #+#              #
-#    Updated: 2019/05/08 16:15:20 by amartino         ###   ########.fr        #
+#    Updated: 2019/05/10 16:40:28 by amartino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIB = libft.a
 
 LIB_PATH = $(LIB_DIR)/$(LIB)
 
-SRC = ft_fillit ft_checks ft_get_pieces main ft_tools ft_solve
+SRC = ft_fillit ft_checks ft_get_pieces main ft_tools ft_solve ft_check_separate_hash
 
 CC = gcc
 

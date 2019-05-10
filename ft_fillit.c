@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 11:05:09 by amartino          #+#    #+#             */
-/*   Updated: 2019/05/08 15:52:38 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/10 18:02:50 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int		ft_fillit(int fd)
 	}
 	ft_strdel(&file);
 	ft_lstiter(map->lst, ft_get_coordinate);
+	ft_check_separate_hash(map);
 	if ((map = ft_solve(map)) == NULL)
 		return (FALSE);
 	ft_putstr(map->map);
