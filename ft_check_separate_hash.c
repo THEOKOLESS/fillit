@@ -6,7 +6,7 @@
 /*   By: amartino <amartino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 16:22:35 by amartino          #+#    #+#             */
-/*   Updated: 2019/05/10 18:00:12 by amartino         ###   ########.fr       */
+/*   Updated: 2019/05/15 11:07:08 by amartino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 
 static void		ft_error(int i, t_map *map)
 {
+	del(&map);
+	ft_putstr_fd("error\n", STDOUT);
+	exit(i);
+}
+
+static void		ft_error_check(int i, t_map *map, t_feel *elem)
+{
+	if (elem->coordinate[1] == elem->coordinate[3]
+	&& elem->coordinate[1] == elem->coordinate[5])
+		return ;
 	del(&map);
 	ft_putstr_fd("error\n", STDOUT);
 	exit(i);
@@ -41,7 +51,7 @@ void			ft_check_separate_hash(t_map *map)
 						ft_error(STDOUT, map);
 				if (elem->coordinate[i + 5] != (elem->coordinate[i + 1] + 1))
 					if (elem->coordinate[i - 2] != elem->coordinate[i + 2])
-						ft_error(STDOUT, map);
+						ft_error_check(STDOUT, map, elem);
 			}
 		}
 		tmp = tmp->next;
